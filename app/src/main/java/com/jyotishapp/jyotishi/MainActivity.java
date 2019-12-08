@@ -2,6 +2,7 @@ package com.jyotishapp.jyotishi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import com.nightonke.boommenu.BoomButtons.HamButton;
@@ -21,12 +22,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addBuilder(){
-        for(int i=0; i<bmb.getPiecePlaceEnum().pieceNumber(); i++){
-            HamButton.Builder builder = new HamButton.Builder()
-                    .normalImageRes(R.drawable.shape_oval_normal)
-                    .normalTextRes(R.string.texty)
-                    .containsSubText(false);
+        HamButton.Builder builder = new HamButton.Builder()
+                .normalImageRes(R.drawable.mail)
+                .highlightedTextRes(R.string.mail)
+                .containsSubText(false)
+                .imagePadding(new Rect(10, 10, 10, 10));
+        HamButton.Builder builder1 = new HamButton.Builder()
+                .normalImageRes(R.drawable.phone)
+                .normalTextRes(R.string.phone)
+                .containsSubText(false)
+                .imagePadding(new Rect(10, 10, 10, 10));
+        HamButton.Builder builder2 = new HamButton.Builder()
+                .normalImageRes(R.drawable.baseline_exit_to_app_white_18dp)
+                .normalTextRes(R.string.exit)
+                .containsSubText(false)
+                .imagePadding(new Rect(10, 10, 10, 10));
             bmb.addBuilder(builder);
-        }
+            bmb.addBuilder(builder1);
+            bmb.addBuilder(builder2);
+
     }
 }
