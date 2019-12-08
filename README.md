@@ -1,0 +1,2 @@
+# JyotishiApp
+App for Astrology
