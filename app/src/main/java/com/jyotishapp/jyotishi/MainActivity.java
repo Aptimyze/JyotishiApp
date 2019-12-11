@@ -2,12 +2,14 @@ package com.jyotishapp.jyotishi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 
 import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Util;
@@ -41,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
                 .normalColorRes(R.color.button1)
                 .highlightedColorRes(R.color.colorAccent)
                 .typeface(Typeface.DEFAULT_BOLD)
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        Intent phoneIntent = new Intent(MainActivity.this, PhoneLogin.class);
+                        startActivity(phoneIntent);
+                    }
+                })
                 .textPadding(new Rect(0, 30, 0, 0))
                 .containsSubText(false)
                 .imagePadding(new Rect(10, 10, 10, 10));
@@ -54,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
                 .containsSubText(false)
                 .buttonHeight(Util.dp2px(60))
                 .buttonWidth(Util.dp2px(200))
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        finish();
+                    }
+                })
                 .imagePadding(new Rect(10, 10, 10, 10));
             bmb.addBuilder(builder);
             bmb.addBuilder(builder1);

@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Jyotishi</string>
-    <string name = "texty">Butterfly doesn\'t fly</string>
+    <string name="texty">Butterfly doesn\'t fly</string>
     <string name="mail">Continue with Mail</string>
     <string name="phone">Continue with Phone</string>
     <string name="exit">Exit</string>
     <string name="pp"><u>Privacy Policy</u></string>
+    <string name="underlinedClickHere"><u>Resend OTP</u></string>
     <string name="tnc"><u>Terms and Conditions</u></string>
 </resources>
