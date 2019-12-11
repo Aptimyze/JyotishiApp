@@ -63,19 +63,21 @@
         app:rippleColor="#D99B08" />
 
     <TextView
+        android:id="@+id/enterOtp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="134dp"
         android:layout_marginEnd="133dp"
         android:layout_marginBottom="13dp"
         android:text="Enter the OTP received"
+        android:visibility="invisible"
         android:textColor="#2e2e2e"
-        app:layout_constraintBottom_toTopOf="@+id/otpEditText"
+        app:layout_constraintBottom_toTopOf="@+id/otp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.broooapps.otpedittext2.OtpEditText
-        android:id="@+id/otpEditText"
+        android:id="@+id/otp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="55dp"
@@ -86,7 +88,7 @@
         android:cursorVisible="false"
         android:digits="0123456789"
         android:inputType="number"
-
+        android:visibility="invisible"
         android:maxLength="6"
         android:padding="8dp"
         android:textSize="20sp"
@@ -97,22 +99,24 @@
         app:oev_secondary_color="#D99B08" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/didntGetOtp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="142dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="139dp"
         android:text="Did not receive the OTP?"
+        android:visibility="invisible"
         android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otpEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/otp" />
 
     <TextView
         android:id="@+id/resendOtpLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:layout_marginStart="176dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="158dp"
@@ -121,6 +125,6 @@
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/didntGetOtp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
