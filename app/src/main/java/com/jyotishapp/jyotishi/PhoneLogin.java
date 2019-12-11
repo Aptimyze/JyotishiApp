@@ -3,6 +3,7 @@ package com.jyotishapp.jyotishi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.broooapps.otpedittext2.OnCompleteListener;
 import com.broooapps.otpedittext2.OtpEditText;
 import com.google.android.material.button.MaterialButton;
 import com.hbb20.CountryCodePicker;
@@ -38,6 +40,15 @@ public class PhoneLogin extends AppCompatActivity {
         ccp.registerCarrierNumberEditText(number);
         enterOtp = (TextView) findViewById(R.id.enterOtp);
         didntGetOtp = (TextView) findViewById(R.id.didntGetOtp);
+        otp.setOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(String value) {
+                if(otp.getText().toString().equals("123456")){
+                    Toast.makeText(PhoneLogin.this, "Login Successful", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(PhoneLogin.this, MainScreen.class));
+                }
+            }
+        });
     }
 
     public void requested(View view)
@@ -58,5 +69,6 @@ public class PhoneLogin extends AppCompatActivity {
         }, 5000);
         Log.v("AAAA", ccp.getFullNumberWithPlus());
         requestOtp.setClickable(false);
+        Toast.makeText(PhoneLogin.this, "OTP request Sent", Toast.LENGTH_SHORT).show();
     }
 }

@@ -27,6 +27,7 @@ dependencies {
     implementation 'com.github.mohammadatif:Animatoo:master'
     implementation 'com.github.swapnil1104:OtpEditText:f68545dc13f1b781d36266925c8703d7d028f06d'
     implementation 'com.hbb20:ccp:2.3.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
