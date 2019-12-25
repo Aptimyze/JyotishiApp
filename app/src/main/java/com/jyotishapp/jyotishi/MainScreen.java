@@ -40,6 +40,10 @@ public class MainScreen extends AppCompatActivity {
         bmb.addBuilder(builder1);
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     public void picClick(View view){
         bmb.boom();
     }
