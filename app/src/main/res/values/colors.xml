@@ -10,6 +10,7 @@
     <color name="button2">#FD5756</color>
     <color name="linkBlue">#0863ED</color>
     <color name="buttonHigh2">#B95756</color>
+    <color name="white">#FFFFFF</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

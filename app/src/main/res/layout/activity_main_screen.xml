@@ -3,22 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bmm"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainScreen">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
+        <!--        <ImageView-->
+        <!--            android:layout_width="300dp"-->
+        <!--            android:layout_height="300dp">-->
 
-    </FrameLayout>
+        <!--        </ImageView>-->
+
+        <com.nightonke.boommenu.BoomMenuButton
+            android:id="@+id/mainPic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="165dp"
+            android:layout_marginTop="298dp"
+            android:layout_marginEnd="146dp"
+            android:layout_marginBottom="333dp"
+            app:bmb_buttonEnum="textInsideCircle"
+            app:bmb_buttonPlaceEnum="buttonPlace_sc_2_1"
+            app:bmb_piecePlaceEnum="piecePlace_dot_2_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:alpha="0.95"
+            android:onClick="picClick"
+            android:src="@drawable/modi"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

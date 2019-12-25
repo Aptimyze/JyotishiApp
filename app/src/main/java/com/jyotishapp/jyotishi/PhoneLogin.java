@@ -3,11 +3,13 @@ package com.jyotishapp.jyotishi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,12 +49,24 @@ public class PhoneLogin extends AppCompatActivity {
                     Toast.makeText(PhoneLogin.this, "Login Successful", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(PhoneLogin.this, MainScreen.class));
                 }
+                else{
+                    Toast.makeText(PhoneLogin.this, "Wrong OTP", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
+    public void closeKeyboard(){
+        View view = this.getCurrentFocus();
+        if(view != null){
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     public void requested(View view)
     {
+        closeKeyboard();
         String fNumber = ccp.getFullNumberWithPlus();
         if(!ccp.isValidFullNumber()) {
             Toast.makeText(PhoneLogin.this, "Please enter a valid number", Toast.LENGTH_LONG).show();
