@@ -33,30 +33,48 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:alpha="0.95"
-            android:onClick="picClick"
-            android:src="@drawable/modi"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:background="@drawable/mainimage"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageBorder"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="295dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginBottom="52dp"
-            android:onClick="logout"
-            android:text="logout"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/mainimagesolid"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="215dp"
+            android:layout_height="215dp"
+            android:alpha="0.95"
+            android:onClick="picClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/modi"
+            />
+
+        <io.github.yavski.fabspeeddial.FabSpeedDial
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="7dp"
+            android:id="@+id/tool"
+            android:gravity="top|end"
+            app:fabGravity="top_end"
+            app:fabMenu="@menu/tools"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:miniFabBackgroundTint="@color/white"
+            app:miniFabDrawableTint="@color/colorAccent"
+            app:miniFabTitleTextColor="@color/black_overlay" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
