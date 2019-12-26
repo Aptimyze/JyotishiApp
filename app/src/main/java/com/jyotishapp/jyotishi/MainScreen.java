@@ -54,12 +54,13 @@ public class MainScreen extends AppCompatActivity {
 
         TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.mess)
-                .normalText("Message Chat")
-                .imageRect(new Rect(Util.dp2px(10), Util.dp2px(10), Util.dp2px(70), Util.dp2px(70)));
+                .normalText("Chat")
+                .imagePadding(new Rect(15, 15, 15, 15));
         bmb.addBuilder(builder);
         TextInsideCircleButton.Builder builder1 = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.vid)
-                .normalText("Video Chat");
+                .imagePadding(new Rect(15, 15, 15, 15))
+                .normalText("Video");
         bmb.addBuilder(builder1);
 
         fabsd.setMenuListener(new SimpleMenuListenerAdapter(){
