@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Util;
@@ -55,7 +56,13 @@ public class MainScreen extends AppCompatActivity {
         TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.mess)
                 .normalText("Chat")
-                .imagePadding(new Rect(15, 15, 15, 15));
+                .imagePadding(new Rect(15, 15, 15, 15))
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        startActivity(new Intent(MainScreen.this, ChatActivity.class));
+                    }
+                });
         bmb.addBuilder(builder);
         TextInsideCircleButton.Builder builder1 = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.vid)
@@ -77,7 +84,7 @@ public class MainScreen extends AppCompatActivity {
                         logout();
                         break;
                         default:
-                            Toast.makeText(MainScreen.this, "Gadbad", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainScreen.this, "An error occurred", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
