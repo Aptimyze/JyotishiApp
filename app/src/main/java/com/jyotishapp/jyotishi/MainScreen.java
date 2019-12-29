@@ -19,10 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Util;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
@@ -36,6 +41,8 @@ public class MainScreen extends AppCompatActivity {
     FirebaseAuth mAuth;
     FabSpeedDial fabsd;
     LinearLayout imageBorder;
+    FirebaseDatabase database;
+    DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,13 @@ public class MainScreen extends AppCompatActivity {
             startActivity(new Intent(MainScreen.this, MainActivity.class));
             Toast.makeText(MainScreen.this, "Please Login Again", Toast.LENGTH_SHORT).show();
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy, hh:mm a");
+        Date date = new Date(System.currentTimeMillis());
+        database = FirebaseDatabase.getInstance();
+        mRef = database.getReference().child("Users");
+        mRef = mRef.child(mAuth.getCurrentUser().getUid());
+        mRef.child("UserId").setValue(mAuth.getCurrentUser().getUid());
+        mRef.child("Last Active").setValue(sdf.format(date));
 
         setContentView(R.layout.activity_main_screen);
         getSupportActionBar().hide();
