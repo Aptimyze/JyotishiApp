@@ -28,6 +28,7 @@ import com.nightonke.boommenu.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
@@ -52,7 +53,7 @@ public class MainScreen extends AppCompatActivity {
             startActivity(new Intent(MainScreen.this, MainActivity.class));
             Toast.makeText(MainScreen.this, "Please Login Again", Toast.LENGTH_SHORT).show();
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy, hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy, hh:mm a", Locale.US);
         Date date = new Date(System.currentTimeMillis());
         database = FirebaseDatabase.getInstance();
         mRef = database.getReference().child("Users");
