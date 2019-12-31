@@ -52,6 +52,7 @@ public class VidCallActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vid_call);
+        getSupportActionBar().hide();
 
         mRemoteContainer = (RelativeLayout) findViewById(R.id.remote_video_view_container);
         mLocalContainer = (FrameLayout) findViewById(R.id.local_video_view_container);
@@ -201,11 +202,11 @@ public class VidCallActivity extends AppCompatActivity {
         if(CallEnd){
             startCall();
             CallEnd = false;
-            mCallButt.setImageResource(R.drawable.backshape);
+            mCallButt.setImageResource(R.drawable.stop_call);
         } else{
             endCall();
             CallEnd = true;
-            mCallButt.setImageResource(R.drawable.sendmessage);
+            mCallButt.setImageResource(R.drawable.resume_call);
         }
         showButtons(!CallEnd);
     }
@@ -241,6 +242,7 @@ public class VidCallActivity extends AppCompatActivity {
     public void onLocalAudioMuteClicked(View view){
         mMuted = !mMuted;
         rtcEngine.muteLocalAudioStream(mMuted);
-//        int res= mMuted ? R.drawable.
+        int res= mMuted ? R.drawable.mic_on : R.drawable.mic_off;
+        mMuteButt.setImageResource(res);
     }
 }
