@@ -82,7 +82,13 @@ public class MainScreen extends AppCompatActivity {
         TextInsideCircleButton.Builder builder1 = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.vid)
                 .imagePadding(new Rect(15, 15, 15, 15))
-                .normalText("Video");
+                .normalText("Video")
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        startActivity(new Intent(MainScreen.this, VidCallActivity.class));
+                    }
+                });
         bmb.addBuilder(builder1);
 
         fabsd.setMenuListener(new SimpleMenuListenerAdapter(){

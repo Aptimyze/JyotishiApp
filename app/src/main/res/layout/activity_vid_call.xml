@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/activity_video_chat_view"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    tools:context=".VidCallActivity">
+
+    <RelativeLayout
+        android:id="@+id/remote_video_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/remote_background">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/icon_padding">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/mainimage"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/icon_padding"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/local_video_view_container"
+        android:layout_width="250dp"
+        android:layout_height="400dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/linkBlue">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/signout" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/control_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+        <ImageView
+            android:id="@+id/btn_call"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:onClick="onCallClicked"
+            android:src="@drawable/sendmessage"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/btn_switch_camera"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@id/btn_call"
+            android:layout_toEndOf="@id/btn_call"
+            android:layout_centerVertical="true"
+            android:onClick="onSwitchCameraClicked"
+            android:src="@drawable/helpripple"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/btn_mute"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toLeftOf="@id/btn_call"
+            android:layout_toStartOf="@id/btn_call"
+
+            android:layout_centerVertical="true"
+            android:onClick="onLocalAudioMuteClicked"
+            android:src="@drawable/profile"
+            android:scaleType="centerCrop"/>
+    </RelativeLayout>
+
+</RelativeLayout>

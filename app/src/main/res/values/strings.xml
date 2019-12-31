@@ -13,4 +13,6 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="agora_app_id">44eb2b3e578b4cd8b07b1438806a4c45</string>
+    <string name="access_token"></string>
+    <string name="title_activity_vid_call">VidCallActivity</string>
 </resources>
