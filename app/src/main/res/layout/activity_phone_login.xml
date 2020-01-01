@@ -70,8 +70,8 @@
         android:layout_marginEnd="133dp"
         android:layout_marginBottom="13dp"
         android:text="Enter the OTP received"
-        android:visibility="invisible"
         android:textColor="#2e2e2e"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/otp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -30,7 +30,7 @@
         <activity
             android:name=".MainScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_main_screen"
+            android:label="Jyotishi"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
