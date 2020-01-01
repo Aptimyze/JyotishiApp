@@ -1,11 +1,15 @@
 package com.jyotishapp.jyotishi;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +32,7 @@ import com.nightonke.boommenu.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
@@ -37,12 +42,19 @@ import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
  * status bar and navigation/system bar) with user interaction.
  */
 public class MainScreen extends AppCompatActivity {
+
+    private static final int PERMISSION_REQ_ID = 22;
     BoomMenuButton bmb;
     FirebaseAuth mAuth;
     FabSpeedDial fabsd;
     LinearLayout imageBorder;
     FirebaseDatabase database;
     DatabaseReference mRef;
+    private static final String[] REQUESTED_PERMISSIONS = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +64,21 @@ public class MainScreen extends AppCompatActivity {
             startActivity(new Intent(MainScreen.this, MainActivity.class));
             Toast.makeText(MainScreen.this, "Please Login Again", Toast.LENGTH_SHORT).show();
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy, hh:mm a");
+        for(int i=0; i<2; i++){
+            checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID);
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy, hh:mm a", Locale.US);
         Date date = new Date(System.currentTimeMillis());
-        database = FirebaseDatabase.getInstance();
-        mRef = database.getReference().child("Users");
-        mRef = mRef.child(mAuth.getCurrentUser().getUid());
+        try {
+            database = FirebaseDatabase.getInstance();
+            mRef = database.getReference().child("Users");
+            mRef = mRef.child(mAuth.getCurrentUser().getUid());
+        }catch (Exception e) {
+            startActivity(new Intent(MainScreen.this, MainActivity.class));
+            finish();
+            Toast.makeText(MainScreen.this, "Please Login Again", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mRef.child("UserId").setValue(mAuth.getCurrentUser().getUid());
         mRef.child("Last Active").setValue(sdf.format(date));
 
@@ -81,7 +103,13 @@ public class MainScreen extends AppCompatActivity {
         TextInsideCircleButton.Builder builder1 = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.vid)
                 .imagePadding(new Rect(15, 15, 15, 15))
-                .normalText("Video");
+                .normalText("Video")
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        startActivity(new Intent(MainScreen.this, VidCallActivity.class));
+                    }
+                });
         bmb.addBuilder(builder1);
 
         fabsd.setMenuListener(new SimpleMenuListenerAdapter(){
@@ -110,6 +138,15 @@ public class MainScreen extends AppCompatActivity {
         rotateAnimation.setDuration(2000);
         rotateAnimation.setRepeatCount(Animation.INFINITE);
         imageBorder.setAnimation(rotateAnimation);
+    }
+
+    private boolean checkSelfPermission(String permission, int requestCode){
+        if(ContextCompat.checkSelfPermission(this, permission ) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, requestCode);
+            Log.v("AAA", permission);
+            return false;
+        }
+        return true;
     }
 
     @Override
