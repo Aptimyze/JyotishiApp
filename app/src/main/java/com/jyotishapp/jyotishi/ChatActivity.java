@@ -23,8 +23,6 @@ public class ChatActivity extends AppCompatActivity {
         help_butt = (LinearLayout) findViewById(R.id.help_butt);
         back_button = (LinearLayout) findViewById(R.id.back_button);
 
-
-
     }
 
     public void back_butt_click(View view){

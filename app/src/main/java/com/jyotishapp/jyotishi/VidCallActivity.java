@@ -54,6 +54,7 @@ public class VidCallActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vid_call);
         getSupportActionBar().hide();
 
+        //get References
         mRemoteContainer = (RelativeLayout) findViewById(R.id.remote_video_view_container);
         mLocalContainer = (FrameLayout) findViewById(R.id.local_video_view_container);
         mCallButt = (ImageView) findViewById(R.id.btn_call);
