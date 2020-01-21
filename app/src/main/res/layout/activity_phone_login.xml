@@ -125,6 +125,7 @@
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/didntGetOtp" />
+        app:layout_constraintTop_toBottomOf="@+id/didntGetOtp"
+        android:onClick="resendOTP"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

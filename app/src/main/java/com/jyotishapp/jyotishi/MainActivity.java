@@ -19,11 +19,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
@@ -36,12 +42,17 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private int RC_SIGNIN = 9001;
+    FirebaseDatabase database;
+    DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
+        database = FirebaseDatabase.getInstance();
+        mRef = database.getReference();
 
         //animation buttons
         bmb = (BoomMenuButton) findViewById(R.id.bmbHam);
@@ -148,6 +159,28 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Log.v("AAAA", "Success");
+                            mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Name");
+                            mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(!dataSnapshot.exists()){
+                                        startActivity(new Intent(MainActivity.this, InformationActivity.class));
+                                        return;
+                                    }
+                                    else {
+                                        startActivity(new Intent(MainActivity.this, MainScreen.class));
+                                        return;
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                            startActivity(new Intent(MainActivity.this, MainScreen.class));
+
+
                             startActivity(new Intent(MainActivity.this, MainScreen.class));
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                             finish();
