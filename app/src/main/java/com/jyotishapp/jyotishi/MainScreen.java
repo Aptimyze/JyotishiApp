@@ -157,6 +157,14 @@ public class MainScreen extends AppCompatActivity {
         bmb.boom();
     }
 
+    public void exploreOptionsClicked(View view){
+        bmb.boom();
+    }
+
+    public void viewJyotishProfilesClicked(View view){
+        startActivity(new Intent(MainScreen.this, JyotishProfilesActivity.class));
+    }
+
     public void logout(){
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(MainScreen.this, MainActivity.class));
