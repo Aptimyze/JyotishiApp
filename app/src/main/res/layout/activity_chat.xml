@@ -96,6 +96,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
+            android:id="@+id/typedMessage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="0dp"
@@ -106,6 +107,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
         <LinearLayout
+            android:id="@+id/sendButton"
+            android:onClick="sendButtonClicked"
             android:layout_marginLeft="5dp"
             android:layout_width="40dp"
             android:layout_height="match_parent"

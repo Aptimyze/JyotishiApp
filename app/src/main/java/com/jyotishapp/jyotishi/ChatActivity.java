@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.view.View;
@@ -27,13 +29,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ChatActivity extends AppCompatActivity {
     LinearLayout help_butt, back_button;
     FirebaseDatabase database;
     DatabaseReference mRef;
     RecyclerView messages;
     FirebaseAuth mAuth;
-    LinearLayout messageContainer;
+    LinearLayout messageContainer, parentContainer;
+    EditText typedMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +51,15 @@ public class ChatActivity extends AppCompatActivity {
         help_butt = (LinearLayout) findViewById(R.id.help_butt);
         back_button = (LinearLayout) findViewById(R.id.back_button);
         messages = (RecyclerView) findViewById(R.id.messages);
-        messageContainer = (LinearLayout) findViewById(R.id.layoutContainer);
+        typedMessage = (EditText) findViewById(R.id.typedMessage);
 
         messages.setLayoutManager(new LinearLayoutManager(this));
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid())
-                .child("Name");
+        mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+
+        getMessageNo();
 
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
@@ -63,6 +70,20 @@ public class ChatActivity extends AppCompatActivity {
 
         inflateMessages(query);
 
+    }
+
+    public void getMessageNo(){
+        mRef.child("Chat").child("TotalMessages").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                messageNo = Integer.parseInt(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void inflateMessages(Query query){
@@ -81,8 +102,7 @@ public class ChatActivity extends AppCompatActivity {
                         holder.setTime(model.getTime());
                     }
                     else {
-                        messageContainer.setGravity(Gravity.LEFT);
-                        messageContainer.setBackgroundResource(R.drawable.senderchatmessage);
+                        holder.setContainer();
                         holder.setSender("Jyotish Ji");
                         holder.setTextMessage(model.getTextMessage());
                         holder.setTime(model.getTime());
@@ -107,6 +127,14 @@ public class ChatActivity extends AppCompatActivity {
             mView = itemView;
         }
 
+        public void setContainer(){
+            parentContainer = (LinearLayout) mView.findViewById(R.id.parentContainer);
+            parentContainer.setGravity(Gravity.RIGHT);
+            messageContainer = (LinearLayout) mView.findViewById(R.id.layoutContainer);
+            messageContainer.setGravity(Gravity.LEFT);
+            messageContainer.setBackgroundResource(R.drawable.senderchatmessage);
+        }
+
         public void setTextMessage(String message){
             TextView textMessage = (TextView) mView.findViewById(R.id.textMessage);
             textMessage.setText(message);
@@ -125,6 +153,31 @@ public class ChatActivity extends AppCompatActivity {
 
     public void back_butt_click(View view){
         finish();
+    }
+
+    public int messageNo =0;
+    public void sendButtonClicked(View view){
+        String messageTyped = typedMessage.getText().toString().trim();
+        if(!TextUtils.isEmpty(messageTyped)){
+            if(messageNo!=0){
+                messageNo++;
+                DatabaseReference chatRef = mRef.child("Chat").child("Messages");
+                chatRef.child(messageNo+"").child("messageId").setValue(messageNo+"");
+                chatRef.child(messageNo+"").child("sender").setValue("User");
+                chatRef.child(messageNo+"").child("textMessage").setValue(messageTyped);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM, hh:mm");
+                Date date = new Date();
+                chatRef.child(messageNo+"").child("time").setValue(sdf.format(date));
+                mRef.child("Chat").child("TotalMessages").setValue(messageNo+"");
+                typedMessage.setText("");
+                messageNo=0;
+            }
+            else
+                Toast.makeText(ChatActivity.this, "Unable to send message", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(ChatActivity.this, "Please type a message!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void help_butt_click(View view){
