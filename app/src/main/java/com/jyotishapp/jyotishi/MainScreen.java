@@ -117,7 +117,7 @@ public class MainScreen extends AppCompatActivity {
             public boolean onMenuItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.profile:
-                        Toast.makeText(MainScreen.this, "Profile", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainScreen.this, UserProfileActivity.class));
                         Log.v("AAA", menuItem.getItemId()+" " + R.id.profile);
                         break;
                     case R.id.signout:

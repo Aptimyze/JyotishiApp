@@ -130,7 +130,7 @@ public class ChatActivity extends AppCompatActivity {
 
         public void setContainer(){
             parentContainer = (LinearLayout) mView.findViewById(R.id.parentContainer);
-            parentContainer.setGravity(Gravity.RIGHT);
+            parentContainer.setGravity(Gravity.LEFT);
             messageContainer = (LinearLayout) mView.findViewById(R.id.layoutContainer);
             messageContainer.setGravity(Gravity.LEFT);
             messageContainer.setBackgroundResource(R.drawable.senderchatmessage);
