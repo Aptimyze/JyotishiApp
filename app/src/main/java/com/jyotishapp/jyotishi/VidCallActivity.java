@@ -3,6 +3,7 @@ package com.jyotishapp.jyotishi;
 import android.Manifest;
 import android.annotation.SuppressLint;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -23,6 +24,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
+
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
@@ -41,6 +49,7 @@ public class VidCallActivity extends AppCompatActivity {
     private ImageView mCallButt, mMuteButt, mSwitchCameraButt;
     private SurfaceView mLocalView, mRemoteView;
     private boolean CallEnd, mMuted;
+    FirebaseAuth mAuth;
 
     private static final String[] REQUESTED_PERMISSIONS = {
             Manifest.permission.CAMERA,
@@ -60,7 +69,31 @@ public class VidCallActivity extends AppCompatActivity {
         mCallButt = (ImageView) findViewById(R.id.btn_call);
         mMuteButt = (ImageView) findViewById(R.id.btn_mute);
         mSwitchCameraButt = (ImageView) findViewById(R.id.btn_switch_camera);
+        mAuth = FirebaseAuth.getInstance();
 
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+        OneSignal.setSubscription(true);
+        OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
+            @Override
+            public void idsAvailable(String userId, String registrationId) {
+                FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid())
+                        .child("NotificationKey").setValue(userId);
+            }
+        });
+        FirebaseDatabase.getInstance().getReference().child("Admin").child("NotificationKey").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                new SendNotificationForCall("Join Video Call", "A user is calling you, please join the video call", dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //checkingg permissions
         if(checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
