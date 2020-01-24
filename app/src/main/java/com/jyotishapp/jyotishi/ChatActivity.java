@@ -40,6 +40,7 @@ public class ChatActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     LinearLayout messageContainer, parentContainer;
     EditText typedMessage;
+    int messageNo =-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,7 @@ public class ChatActivity extends AppCompatActivity {
                     }
                     else {
                         holder.setContainer();
-                        holder.setSender("Jyotish Ji");
+                        holder.setSender("Jyotish");
                         holder.setTextMessage(model.getTextMessage());
                         holder.setTime(model.getTime());
                     }
@@ -155,11 +156,10 @@ public class ChatActivity extends AppCompatActivity {
         finish();
     }
 
-    public int messageNo =0;
     public void sendButtonClicked(View view){
         String messageTyped = typedMessage.getText().toString().trim();
         if(!TextUtils.isEmpty(messageTyped)){
-            if(messageNo!=0){
+            if(messageNo!=-1){
                 messageNo++;
                 DatabaseReference chatRef = mRef.child("Chat").child("Messages");
                 chatRef.child(messageNo+"").child("messageId").setValue(messageNo+"");
@@ -170,7 +170,8 @@ public class ChatActivity extends AppCompatActivity {
                 chatRef.child(messageNo+"").child("time").setValue(sdf.format(date));
                 mRef.child("Chat").child("TotalMessages").setValue(messageNo+"");
                 typedMessage.setText("");
-                messageNo=0;
+                messageNo=-1;
+                getMessageNo();
             }
             else
                 Toast.makeText(ChatActivity.this, "Unable to send message", Toast.LENGTH_SHORT).show();
