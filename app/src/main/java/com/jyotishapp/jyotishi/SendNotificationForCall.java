@@ -1,5 +1,9 @@
 package com.jyotishapp.jyotishi;
 
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.onesignal.OneSignal;
 
 import org.json.JSONException;

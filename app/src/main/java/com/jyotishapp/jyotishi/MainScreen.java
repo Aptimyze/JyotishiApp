@@ -72,6 +72,7 @@ public class MainScreen extends AppCompatActivity {
         for(int i=0; i<2; i++){
             checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID);
         }
+        FirebaseDatabase.getInstance().getReference().child("CurrentVidCall").removeValue();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy, hh:mm a", Locale.US);
         Date date = new Date(System.currentTimeMillis());
         try {

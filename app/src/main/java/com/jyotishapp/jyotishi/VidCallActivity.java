@@ -50,6 +50,8 @@ public class VidCallActivity extends AppCompatActivity {
     private SurfaceView mLocalView, mRemoteView;
     private boolean CallEnd, mMuted;
     FirebaseAuth mAuth;
+    String name = "";
+    int f=0;
 
     private static final String[] REQUESTED_PERMISSIONS = {
             Manifest.permission.CAMERA,
@@ -71,29 +73,87 @@ public class VidCallActivity extends AppCompatActivity {
         mSwitchCameraButt = (ImageView) findViewById(R.id.btn_switch_camera);
         mAuth = FirebaseAuth.getInstance();
 
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
-        OneSignal.setSubscription(true);
-        OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
-            @Override
-            public void idsAvailable(String userId, String registrationId) {
-                FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid())
-                        .child("NotificationKey").setValue(userId);
-            }
-        });
-        FirebaseDatabase.getInstance().getReference().child("Admin").child("NotificationKey").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Name")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        name = dataSnapshot.getValue().toString();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+        FirebaseDatabase.getInstance().getReference().child("CurrentVidCall").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                new SendNotificationForCall("Join Video Call", "A user is calling you, please join the video call", dataSnapshot.getValue().toString());
-            }
+                if(!dataSnapshot.exists()){
+                    FirebaseDatabase.getInstance().getReference().child("CurrentVidCall").setValue(mAuth.getCurrentUser().getUid());
+                    OneSignal.startInit(VidCallActivity.this)
+                            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                            .unsubscribeWhenNotificationsAreDisabled(true)
+                            .init();
+                    OneSignal.setSubscription(true);
+                    OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
+                        @Override
+                        public void idsAvailable(String userId, String registrationId) {
+                            FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid())
+                                    .child("NotificationKey").setValue(userId);
+                        }
+                    });
+
+                    FirebaseDatabase.getInstance().getReference().child("Admin").child("NotificationKey").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            new SendNotificationForCall("Join Video Call" + "\nch" + mAuth.getCurrentUser().getUid(), name+ " is calling you, please join the video call", dataSnapshot.getValue().toString());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else {
+                    OneSignal.startInit(VidCallActivity.this)
+                            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                            .unsubscribeWhenNotificationsAreDisabled(true)
+                            .init();
+                    OneSignal.setSubscription(true);
+                    OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
+                        @Override
+                        public void idsAvailable(String userId, String registrationId) {
+                            FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid())
+                                    .child("NotificationKey").setValue(userId);
+                        }
+                    });
+
+                    FirebaseDatabase.getInstance().getReference().child("Admin").child("NotificationKey").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            new SendNotificationForCall("Missed Video Call"+ "\nch" + mAuth.getCurrentUser().getUid(), "You have a missed call from "+name , dataSnapshot.getValue().toString());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    f=1;
+                    finish();
+                }
+                }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
+        if(f==1)
+            return;
 
         //checkingg permissions
         if(checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
@@ -148,7 +208,7 @@ public class VidCallActivity extends AppCompatActivity {
         String token = getString(R.string.access_token);
         if(TextUtils.isEmpty(token) || TextUtils.equals(token, "#YOUR ACCESS TOKEN"))
             token = null;
-        rtcEngine.joinChannel(token, "demoChannel1", "Extra Optional Data", 0);
+        rtcEngine.joinChannel(token, mAuth.getCurrentUser().getUid(), "Extra Optional Data", 0);
     }
 
     @Override
@@ -157,6 +217,7 @@ public class VidCallActivity extends AppCompatActivity {
         if(!CallEnd)
             leaveChannel();
         RtcEngine.destroy();
+        FirebaseDatabase.getInstance().getReference().child("CurrentVidCall").removeValue();
         finish();
     }
 
