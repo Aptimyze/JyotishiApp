@@ -44,6 +44,7 @@ public class InformationActivity extends AppCompatActivity {
             mRef.child("Name").setValue(userName);
             mRef.child("Age").setValue(userAge);
             mRef.child("Chat").child("TotalMessages").setValue("0");
+            mRef.child("timestamp").setValue(0);
             startActivity(new Intent(InformationActivity.this, MainScreen.class));
         }
         else {

@@ -180,7 +180,7 @@ public class ChatActivity extends AppCompatActivity {
                 mRef.child("Chat").child("TotalMessages").setValue(messageNo+"");
                 typedMessage.setText("");
                 long timestamp = System.currentTimeMillis();
-                mRef.child("timestamp").setValue(timestamp+"");
+                mRef.child("timestamp").setValue(timestamp);
                 mRef.child("lastMessage").setValue(messageTyped);
                 mRef.child("newMessage").setValue("1");
                 messageNo=-1;
