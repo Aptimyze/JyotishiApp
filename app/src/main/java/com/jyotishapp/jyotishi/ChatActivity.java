@@ -179,6 +179,10 @@ public class ChatActivity extends AppCompatActivity {
                 chatRef.child(messageNo+"").child("time").setValue(sdf.format(date));
                 mRef.child("Chat").child("TotalMessages").setValue(messageNo+"");
                 typedMessage.setText("");
+                long timestamp = System.currentTimeMillis();
+                mRef.child("timestamp").setValue(timestamp+"");
+                mRef.child("lastMessage").setValue(messageTyped);
+                mRef.child("newMessage").setValue("1");
                 messageNo=-1;
                 getMessageNo();
             }
