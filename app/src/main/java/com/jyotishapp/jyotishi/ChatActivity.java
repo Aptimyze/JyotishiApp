@@ -74,7 +74,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void getMessageNo(){
-        mRef.child("Chat").child("TotalMessages").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("Chat").child("TotalMessages").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 messageNo = Integer.parseInt(dataSnapshot.getValue().toString());
@@ -98,6 +98,7 @@ public class ChatActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull MessageViewHolder holder, int position, @NonNull Messages model) {
 //                    final String message = getRef(position).getKey();
                     if(!model.getSender().equals("Jyotish")){
+                        holder.setOriginContainer();
                         holder.setSender("You");
                         holder.setTextMessage(model.getTextMessage());
                         holder.setTime(model.getTime());
@@ -126,6 +127,14 @@ public class ChatActivity extends AppCompatActivity {
         public MessageViewHolder(@NonNull View itemView){
             super(itemView);
             mView = itemView;
+        }
+
+        public void setOriginContainer(){
+            parentContainer = (LinearLayout) mView.findViewById(R.id.parentContainer);
+            parentContainer.setGravity(Gravity.LEFT);
+            messageContainer = (LinearLayout) mView.findViewById(R.id.layoutContainer);
+            messageContainer.setGravity(Gravity.LEFT);
+            messageContainer.setBackgroundResource(R.drawable.chatmessage);
         }
 
         public void setContainer(){
