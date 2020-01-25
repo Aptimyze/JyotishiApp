@@ -60,6 +60,7 @@ public class MainScreen extends AppCompatActivity {
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class MainScreen extends AppCompatActivity {
             startActivity(new Intent(MainScreen.this, MainActivity.class));
             Toast.makeText(MainScreen.this, "Please Login Again", Toast.LENGTH_SHORT).show();
         }
+        uid = mAuth.getCurrentUser().getUid();
         for(int i=0; i<2; i++){
             checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID);
         }
@@ -139,6 +141,7 @@ public class MainScreen extends AppCompatActivity {
         });
 
         OneSignal.startInit(this)
+                .setNotificationOpenedHandler(new NotificationOpener(MainScreen.this, uid))
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();

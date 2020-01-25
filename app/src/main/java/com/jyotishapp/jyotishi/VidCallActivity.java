@@ -36,10 +36,6 @@ import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 public class VidCallActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQ_ID = 22;
@@ -92,6 +88,7 @@ public class VidCallActivity extends AppCompatActivity {
                 if(!dataSnapshot.exists()){
                     FirebaseDatabase.getInstance().getReference().child("CurrentVidCall").setValue(mAuth.getCurrentUser().getUid());
                     OneSignal.startInit(VidCallActivity.this)
+                            .setNotificationOpenedHandler(new NotificationOpener(VidCallActivity.this, mAuth.getCurrentUser().getUid()))
                             .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                             .unsubscribeWhenNotificationsAreDisabled(true)
                             .init();
@@ -107,7 +104,8 @@ public class VidCallActivity extends AppCompatActivity {
                     FirebaseDatabase.getInstance().getReference().child("Admin").child("NotificationKey").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            new SendNotificationForCall("Join Video Call" + "\nch" + mAuth.getCurrentUser().getUid(), name+ " is calling you, please join the video call", dataSnapshot.getValue().toString());
+                            new SendNotificationForCall("Join Video Call" + "\nch" + mAuth.getCurrentUser().getUid(),
+                                    name+ " is calling you, please join the video call", dataSnapshot.getValue().toString());
                         }
 
                         @Override
@@ -118,6 +116,7 @@ public class VidCallActivity extends AppCompatActivity {
                 }
                 else {
                     OneSignal.startInit(VidCallActivity.this)
+                            .setNotificationOpenedHandler(new NotificationOpener(VidCallActivity.this, mAuth.getCurrentUser().getUid()))
                             .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                             .unsubscribeWhenNotificationsAreDisabled(true)
                             .init();
