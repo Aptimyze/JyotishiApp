@@ -1,10 +1,12 @@
 package com.jyotishapp.jyotishi;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -41,6 +44,8 @@ public class ChatActivity extends AppCompatActivity {
     LinearLayout messageContainer, parentContainer;
     EditText typedMessage;
     int messageNo =-1;
+    String name, nid;
+    LinearLayoutManager rvllm = new LinearLayoutManager(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +53,28 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         getSupportActionBar().hide();
+        rvllm.setStackFromEnd(true);
+
+        FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                name = dataSnapshot.child("Users").child(mAuth.getCurrentUser().getUid())
+                        .child("Name").getValue().toString();
+                nid = dataSnapshot.child("Admin").child("NotificationKey").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         help_butt = (LinearLayout) findViewById(R.id.help_butt);
         back_button = (LinearLayout) findViewById(R.id.back_button);
         messages = (RecyclerView) findViewById(R.id.messages);
         typedMessage = (EditText) findViewById(R.id.typedMessage);
 
-        messages.setLayoutManager(new LinearLayoutManager(this));
+        messages.setLayoutManager(rvllm);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -92,7 +112,7 @@ public class ChatActivity extends AppCompatActivity {
                 .setQuery(query, Messages.class)
                 .build();
 
-        FirebaseRecyclerAdapter FBRA = new FirebaseRecyclerAdapter<Messages, MessageViewHolder>(options) {
+        final FirebaseRecyclerAdapter FBRA = new FirebaseRecyclerAdapter<Messages, MessageViewHolder>(options) {
 
             @Override
             protected void onBindViewHolder(@NonNull MessageViewHolder holder, int position, @NonNull Messages model) {
@@ -119,6 +139,23 @@ public class ChatActivity extends AppCompatActivity {
             }
         };
         FBRA.startListening();
+//        FBRA.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+//
+////            @Override
+////            public void onItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload) {
+////                rvllm.smoothScrollToPosition(messages, null, FBRA.getItemCount());
+////            }
+////
+////            @Override
+////            public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+////                rvllm.smoothScrollToPosition(messages, null, FBRA.getItemCount());
+////            }
+//
+//            @Override
+//            public void onItemRangeInserted(int positionStart, int itemCount) {
+//                rvllm.smoothScrollToPosition(messages, null, FBRA.getItemCount());
+//            }
+//        });
         messages.setAdapter(FBRA);
     }
 
@@ -165,7 +202,16 @@ public class ChatActivity extends AppCompatActivity {
         finish();
     }
 
+    public void closeKeyboard(){
+        View view = this.getCurrentFocus();
+        if(view != null){
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     public void sendButtonClicked(View view){
+        closeKeyboard();
         String messageTyped = typedMessage.getText().toString().trim();
         if(!TextUtils.isEmpty(messageTyped)){
             if(messageNo!=-1){
@@ -174,15 +220,16 @@ public class ChatActivity extends AppCompatActivity {
                 chatRef.child(messageNo+"").child("messageId").setValue(messageNo+"");
                 chatRef.child(messageNo+"").child("sender").setValue("User");
                 chatRef.child(messageNo+"").child("textMessage").setValue(messageTyped);
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM, hh:mm");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM, hh:mm a");
                 Date date = new Date();
                 chatRef.child(messageNo+"").child("time").setValue(sdf.format(date));
                 mRef.child("Chat").child("TotalMessages").setValue(messageNo+"");
                 typedMessage.setText("");
                 long timestamp = System.currentTimeMillis();
-                mRef.child("timestamp").setValue(timestamp);
+                mRef.child("timestamp").setValue(-timestamp);
                 mRef.child("lastMessage").setValue(messageTyped);
                 mRef.child("newMessage").setValue("1");
+                new SendNotificationForCall(messageTyped, "New message from " + name, nid);
                 messageNo=-1;
                 getMessageNo();
             }
