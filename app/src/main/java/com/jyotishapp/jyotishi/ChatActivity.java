@@ -234,10 +234,10 @@ public class ChatActivity extends AppCompatActivity {
                 getMessageNo();
             }
             else
-                Toast.makeText(ChatActivity.this, "Unable to send message", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatActivity.this, getString(R.string.unable_send), Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(ChatActivity.this, "Please type a message!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ChatActivity.this, getString(R.string.empty_message), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -249,7 +249,7 @@ public class ChatActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.clear_chat:
-                        Toast.makeText(ChatActivity.this, "Chat cleared", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChatActivity.this, getString(R.string.chat_cleared), Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return true;

@@ -48,4 +48,7 @@
     <string name="type_message"> संदेश लिखें</string>
     <string name="change_language">भाषा बदलें</string>
     <string name="select_lang">एक भाषा का चयन करें</string>
+    <string name="chat_cleared">चैट क्लीयर हो गई</string>
+    <string name="unable_send">संदेश भेजने में असमर्थ</string>
+    <string name="empty_message">कृपया एक संदेश लिखें!</string>
 </resources>
