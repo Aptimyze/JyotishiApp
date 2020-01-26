@@ -5,10 +5,12 @@ import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
@@ -42,10 +44,6 @@ import java.util.Locale;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 public class MainScreen extends AppCompatActivity {
 
     private static final int PERMISSION_REQ_ID = 22;
@@ -55,6 +53,7 @@ public class MainScreen extends AppCompatActivity {
     LinearLayout imageBorder;
     FirebaseDatabase database;
     DatabaseReference mRef;
+    AlertDialog.Builder dialog;
     private static final String[] REQUESTED_PERMISSIONS = {
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
@@ -96,6 +95,7 @@ public class MainScreen extends AppCompatActivity {
         bmb = (BoomMenuButton) findViewById(R.id.mainPic);
         fabsd = (FabSpeedDial) findViewById(R.id.tool);
         imageBorder = (LinearLayout) findViewById(R.id.imageBorder);
+        dialog = new AlertDialog.Builder(this);
 
         TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.mess)
@@ -174,6 +174,26 @@ public class MainScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        dialog.setMessage("Do you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        AlertDialog alertDialog = dialog.create();
+        alertDialog.setTitle("Do you want to exit?");
+        alertDialog.show();
     }
 
     public void picClick(View view){
@@ -191,16 +211,20 @@ public class MainScreen extends AppCompatActivity {
     public void logout(){
         OneSignal.setSubscription(false);
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(MainScreen.this, MainActivity.class));
-        try {
-            // clearing app data
-            String packageName = getApplicationContext().getPackageName();
-            Runtime runtime = Runtime.getRuntime();
-            runtime.exec("pm clear "+packageName);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+//        try {
+//            // clearing app data
+//            String packageName = getApplicationContext().getPackageName();
+//            Runtime runtime = Runtime.getRuntime();
+//            runtime.exec("pm clear "+packageName);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        Intent i = new Intent(MainScreen.this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
     }
 
 }

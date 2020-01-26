@@ -41,8 +41,8 @@ public class UserProfileActivity extends AppCompatActivity {
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                name.setText(dataSnapshot.child("Name").getValue().toString());
-                age.setText(dataSnapshot.child("Age").getValue().toString());
+                name.setText("Name: \n" + dataSnapshot.child("Name").getValue().toString());
+                age.setText("Age: \n" + dataSnapshot.child("Age").getValue().toString());
             }
 
             @Override

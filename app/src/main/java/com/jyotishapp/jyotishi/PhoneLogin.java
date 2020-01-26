@@ -161,6 +161,7 @@ public class PhoneLogin extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            //TODO: spinner stop
                             Log.v("AAA", "Sign in successful");
                             Toast.makeText(PhoneLogin.this, "Signed in", Toast.LENGTH_SHORT).show();
                             mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Name");

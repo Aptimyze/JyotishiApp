@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 .typeface(Typeface.DEFAULT_BOLD)
                 .normalColorRes(R.color.button0)
                 .highlightedColorRes(R.color.bittonHigh0)
-                .textPadding(new Rect(0, 30, 0, 0))
                 .containsSubText(false)
                 .listener(new OnBMClickListener() {
                     @Override
@@ -101,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(phoneIntent);
                     }
                 })
-                .textPadding(new Rect(0, 30, 0, 0))
                 .containsSubText(false)
                 .imagePadding(new Rect(10, 10, 10, 10));
         HamButton.Builder builder2 = new HamButton.Builder()
@@ -110,14 +108,17 @@ public class MainActivity extends AppCompatActivity {
                 .typeface(Typeface.DEFAULT_BOLD)
                 .normalColorRes(R.color.button2)
                 .highlightedColorRes(R.color.buttonHigh2)
-                .textPadding(new Rect(0, 30, 0, 0))
                 .containsSubText(false)
                 .buttonHeight(Util.dp2px(60))
                 .buttonWidth(Util.dp2px(200))
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-                        finish();
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+//                        finish();
                     }
                 })
                 .imagePadding(new Rect(10, 10, 10, 10));
