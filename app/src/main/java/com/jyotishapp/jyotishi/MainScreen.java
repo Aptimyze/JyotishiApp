@@ -10,9 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,11 +66,14 @@ public class MainScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        loadLocale();
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() == null) {
-            startActivity(new Intent(MainScreen.this, MainActivity.class));
-            Toast.makeText(MainScreen.this, "Please Login Again", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainScreen.this, LanguageActivity.class));
+            finish();
+            Toast.makeText(MainScreen.this, getString(R.string.login_again), Toast.LENGTH_SHORT).show();
+            return;
         }
         uid = mAuth.getCurrentUser().getUid();
         for(int i=0; i<2; i++){
@@ -81,9 +87,9 @@ public class MainScreen extends AppCompatActivity {
             mRef = database.getReference().child("Users");
             mRef = mRef.child(mAuth.getCurrentUser().getUid());
         }catch (Exception e) {
-            startActivity(new Intent(MainScreen.this, MainActivity.class));
+            startActivity(new Intent(MainScreen.this, LanguageActivity.class));
             finish();
-            Toast.makeText(MainScreen.this, "Please Login Again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainScreen.this, getString(R.string.login_again), Toast.LENGTH_SHORT).show();
             return;
         }
         mRef.child("UserId").setValue(mAuth.getCurrentUser().getUid());
@@ -99,7 +105,7 @@ public class MainScreen extends AppCompatActivity {
 
         TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.mess)
-                .normalText("Chat")
+                .normalText(getString(R.string.chat))
                 .imagePadding(new Rect(15, 15, 15, 15))
                 .listener(new OnBMClickListener() {
                     @Override
@@ -111,7 +117,7 @@ public class MainScreen extends AppCompatActivity {
         TextInsideCircleButton.Builder builder1 = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.vid)
                 .imagePadding(new Rect(15, 15, 15, 15))
-                .normalText("Video")
+                .normalText(getString(R.string.video))
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
@@ -129,12 +135,16 @@ public class MainScreen extends AppCompatActivity {
                         Log.v("AAA", menuItem.getItemId()+" " + R.id.profile);
                         break;
                     case R.id.signout:
-                        Toast.makeText(MainScreen.this, "Logged Out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainScreen.this, getString(R.string.logged_out), Toast.LENGTH_SHORT).show();
                         Log.v("AAA", menuItem.getItemId()+"");
                         logout();
                         break;
-                        default:
-                            Toast.makeText(MainScreen.this, "An error occurred", Toast.LENGTH_SHORT).show();
+                    case R.id.language:
+                        startActivity(new Intent(MainScreen.this, LanguageActivity.class));
+                        Log.v("AAA", menuItem.getItemId()+" " + R.id.language);
+                        break;
+                    default:
+                        Toast.makeText(MainScreen.this, getString(R.string.error_occured), Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
@@ -163,6 +173,23 @@ public class MainScreen extends AppCompatActivity {
         imageBorder.setAnimation(rotateAnimation);
     }
 
+    public void loadLocale(){
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("My_Lang", "");
+        setLocale(language);
+    }
+
+    public void setLocale(String language){
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", language);
+        editor.apply();
+    }
+
     private boolean checkSelfPermission(String permission, int requestCode){
         if(ContextCompat.checkSelfPermission(this, permission ) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, requestCode);
@@ -174,9 +201,9 @@ public class MainScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        dialog.setMessage("Do you want to exit?")
+        dialog.setMessage(R.string.exit_question)
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -185,14 +212,14 @@ public class MainScreen extends AppCompatActivity {
                         startActivity(intent);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                     }
                 });
         AlertDialog alertDialog = dialog.create();
-        alertDialog.setTitle("Do you want to exit?");
+        alertDialog.setTitle(R.string.exit_question);
         alertDialog.show();
     }
 
@@ -222,7 +249,7 @@ public class MainScreen extends AppCompatActivity {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        Intent i = new Intent(MainScreen.this, MainActivity.class);
+        Intent i = new Intent(MainScreen.this, LanguageActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }

@@ -25,7 +25,7 @@ public class InformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
-        getSupportActionBar().setTitle("User Information");
+        getSupportActionBar().setTitle(R.string.user_info);
 
         //references
         name = (EditText) findViewById(R.id.userName);
@@ -48,7 +48,7 @@ public class InformationActivity extends AppCompatActivity {
             startActivity(new Intent(InformationActivity.this, MainScreen.class));
         }
         else {
-            Toast.makeText(InformationActivity.this, "Please enter both the fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(InformationActivity.this, getString(R.string.both_fields), Toast.LENGTH_SHORT).show();
         }
     }
 

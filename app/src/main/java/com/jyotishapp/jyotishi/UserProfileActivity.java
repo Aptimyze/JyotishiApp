@@ -35,14 +35,14 @@ public class UserProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
-        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setTitle(R.string.profile);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                name.setText("Name: \n" + dataSnapshot.child("Name").getValue().toString());
-                age.setText("Age: \n" + dataSnapshot.child("Age").getValue().toString());
+                name.setText(getString(R.string.name) + ": \n" + dataSnapshot.child("Name").getValue().toString());
+                age.setText(getString(R.string.age) + ": \n" + dataSnapshot.child("Age").getValue().toString());
             }
 
             @Override

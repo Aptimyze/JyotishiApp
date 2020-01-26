@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:layout_weight="1"
-            android:hint="Enter your mobile number">
+            android:hint="@string/enter_mobile_number">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phoneNumber"
@@ -56,7 +56,7 @@
         android:layout_marginTop="34dp"
         android:onClick="requested"
         android:padding="15dp"
-        android:text="Request OTP"
+        android:text="@string/otp_request"
         app:cornerRadius="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
@@ -69,7 +69,7 @@
         android:layout_marginStart="134dp"
         android:layout_marginEnd="133dp"
         android:layout_marginBottom="13dp"
-        android:text="Enter the OTP received"
+        android:text="@string/enter_otp"
         android:textColor="#2e2e2e"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/otp"
@@ -105,7 +105,7 @@
         android:layout_marginStart="142dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="139dp"
-        android:text="Did not receive the OTP?"
+        android:text="@string/didnt_receive_otp"
         android:visibility="invisible"
         android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"

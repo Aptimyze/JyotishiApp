@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -36,6 +39,8 @@ import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Util;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
     BoomMenuButton bmb;
     private GoogleSignInClient googleSignInClient;
@@ -47,9 +52,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        loadLocale();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            startActivity(new Intent(MainActivity.this, MainScreen.class));
+            finish();
+            return;
+        }
+
+
 
         database = FirebaseDatabase.getInstance();
         mRef = database.getReference();
@@ -70,6 +84,23 @@ public class MainActivity extends AppCompatActivity {
         firebaseUser = mAuth.getCurrentUser();
 
         addBuilder();
+    }
+
+    public void loadLocale(){
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("My_Lang", "");
+        setLocale(language);
+    }
+
+    public void setLocale(String language){
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", language);
+        editor.apply();
     }
 
     public void addBuilder(){
@@ -130,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void googleSignIn(){
         if(firebaseUser != null)
-            Toast.makeText(MainActivity.this, "Signed in as: " + firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getString(R.string.signed_in_as) + firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
         Intent googleSignInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(googleSignInIntent, RC_SIGNIN);
     }
@@ -145,9 +176,9 @@ public class MainActivity extends AppCompatActivity {
             try{
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-                Toast.makeText(MainActivity.this, "Signed in as: " + account.getDisplayName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.signed_in_as) + account.getDisplayName(), Toast.LENGTH_SHORT).show();
             }catch (ApiException e){
-                Toast.makeText(MainActivity.this, "Couldn't sign in ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.couldnt_sign_in), Toast.LENGTH_SHORT).show();
             }
         }
     }

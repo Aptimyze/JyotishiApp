@@ -92,7 +92,7 @@ public class PhoneLogin extends AppCompatActivity {
                 super.onCodeSent(s, forceResendingToken);
                 verificationId = s;
                 Log.v("AAA", "OTP Sent successfully");
-                Toast.makeText(PhoneLogin.this, "Code sent", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLogin.this, getString(R.string.code_sent), Toast.LENGTH_SHORT).show();
             }
 
 
@@ -126,7 +126,7 @@ public class PhoneLogin extends AppCompatActivity {
         closeKeyboard();
         String fNumber = ccp.getFullNumberWithPlus();
         if(!ccp.isValidFullNumber()) {
-            Toast.makeText(PhoneLogin.this, "Please enter a valid number", Toast.LENGTH_LONG).show();
+            Toast.makeText(PhoneLogin.this, getString(R.string.enter_valid_number), Toast.LENGTH_LONG).show();
             return;
         }
         enterOtp.setVisibility(View.VISIBLE);
@@ -141,7 +141,7 @@ public class PhoneLogin extends AppCompatActivity {
         Log.v("AAAA", ccp.getFullNumberWithPlus());
         requestOtp.setClickable(false);
         otpProcessing(fNumber);
-        Toast.makeText(PhoneLogin.this, "OTP request Sent", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PhoneLogin.this, getString(R.string.otp_request_sent), Toast.LENGTH_SHORT).show();
     }
 
     protected void otpProcessing(String number){
@@ -163,7 +163,7 @@ public class PhoneLogin extends AppCompatActivity {
                         if(task.isSuccessful()){
                             //TODO: spinner stop
                             Log.v("AAA", "Sign in successful");
-                            Toast.makeText(PhoneLogin.this, "Signed in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PhoneLogin.this, getString(R.string.signed_in), Toast.LENGTH_SHORT).show();
                             mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Name");
                             mRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -187,7 +187,7 @@ public class PhoneLogin extends AppCompatActivity {
 
                         }
                         else {
-                            Toast.makeText(PhoneLogin.this, "Please enter the correct OTP", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PhoneLogin.this, getString(R.string.enter_correct_otp), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -197,7 +197,7 @@ public class PhoneLogin extends AppCompatActivity {
         closeKeyboard();
         String fNumber = ccp.getFullNumberWithPlus();
         if(!ccp.isValidFullNumber()) {
-            Toast.makeText(PhoneLogin.this, "Please enter a valid number", Toast.LENGTH_LONG).show();
+            Toast.makeText(PhoneLogin.this, getString(R.string.enter_valid_number), Toast.LENGTH_LONG).show();
             return;
         }
         enterOtp.setVisibility(View.VISIBLE);
@@ -212,6 +212,6 @@ public class PhoneLogin extends AppCompatActivity {
         Log.v("AAAA", ccp.getFullNumberWithPlus());
         requestOtp.setClickable(false);
         otpProcessing(fNumber);
-        Toast.makeText(PhoneLogin.this, "OTP request resent", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PhoneLogin.this, getString(R.string.otp_request_sent), Toast.LENGTH_SHORT).show();
     }
 }

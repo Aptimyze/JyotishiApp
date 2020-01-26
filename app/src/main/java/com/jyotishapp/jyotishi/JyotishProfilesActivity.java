@@ -12,7 +12,7 @@ public class JyotishProfilesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jyotish_profiles);
-        getSupportActionBar().setTitle("Your Jyotish's");
+        getSupportActionBar().setTitle("Your Jyotishs");
         getSupportActionBar().setHomeButtonEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.jyotishList);
