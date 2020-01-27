@@ -26,6 +26,26 @@ public class NotificationOpener implements OneSignal.NotificationOpenedHandler {
         Log.v("AAA", "result.notification.payload.toJSONObject().toString(): " +
                 result.notification.payload.toJSONObject().toString());
 
+        String x = result.notification.payload.toJSONObject().toString();
+
+        int f=0;
+        int i=30;
+
+        while(i<x.length()-1){
+            if(x.contains("New Message from")){
+                f=1;
+                break;
+            }
+            i++;
+        }
+
+        if(f==1){
+            Intent intent = new Intent(context, ChatActivity.class).
+                    setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+            return;
+        }
+
         if(data!=null){
             customKey =data.optString("customKey", null);
             if(customKey!=null)
