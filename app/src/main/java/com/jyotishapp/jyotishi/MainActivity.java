@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -19,16 +22,24 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Util;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     BoomMenuButton bmb;
@@ -36,12 +47,26 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser firebaseUser;
     private int RC_SIGNIN = 9001;
+    FirebaseDatabase database;
+    DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        loadLocale();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            startActivity(new Intent(MainActivity.this, MainScreen.class));
+            finish();
+            return;
+        }
+
+
+
+        database = FirebaseDatabase.getInstance();
+        mRef = database.getReference();
 
         //animation buttons
         bmb = (BoomMenuButton) findViewById(R.id.bmbHam);
@@ -61,6 +86,23 @@ public class MainActivity extends AppCompatActivity {
         addBuilder();
     }
 
+    public void loadLocale(){
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("My_Lang", "");
+        setLocale(language);
+    }
+
+    public void setLocale(String language){
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", language);
+        editor.apply();
+    }
+
     public void addBuilder(){
         HamButton.Builder builder = new HamButton.Builder()
                 .normalImageRes(R.drawable.mail)
@@ -68,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 .typeface(Typeface.DEFAULT_BOLD)
                 .normalColorRes(R.color.button0)
                 .highlightedColorRes(R.color.bittonHigh0)
-                .textPadding(new Rect(0, 30, 0, 0))
                 .containsSubText(false)
                 .listener(new OnBMClickListener() {
                     @Override
@@ -90,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(phoneIntent);
                     }
                 })
-                .textPadding(new Rect(0, 30, 0, 0))
                 .containsSubText(false)
                 .imagePadding(new Rect(10, 10, 10, 10));
         HamButton.Builder builder2 = new HamButton.Builder()
@@ -99,14 +139,17 @@ public class MainActivity extends AppCompatActivity {
                 .typeface(Typeface.DEFAULT_BOLD)
                 .normalColorRes(R.color.button2)
                 .highlightedColorRes(R.color.buttonHigh2)
-                .textPadding(new Rect(0, 30, 0, 0))
                 .containsSubText(false)
                 .buttonHeight(Util.dp2px(60))
                 .buttonWidth(Util.dp2px(200))
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-                        finish();
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+//                        finish();
                     }
                 })
                 .imagePadding(new Rect(10, 10, 10, 10));
@@ -118,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void googleSignIn(){
         if(firebaseUser != null)
-            Toast.makeText(MainActivity.this, "Signed in as: " + firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getString(R.string.signed_in_as) + firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
         Intent googleSignInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(googleSignInIntent, RC_SIGNIN);
     }
@@ -133,9 +176,9 @@ public class MainActivity extends AppCompatActivity {
             try{
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-                Toast.makeText(MainActivity.this, "Signed in as: " + account.getDisplayName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.signed_in_as) + account.getDisplayName(), Toast.LENGTH_SHORT).show();
             }catch (ApiException e){
-                Toast.makeText(MainActivity.this, "Couldn't sign in ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.couldnt_sign_in), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -148,6 +191,28 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Log.v("AAAA", "Success");
+                            mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Name");
+                            mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(!dataSnapshot.exists()){
+                                        startActivity(new Intent(MainActivity.this, InformationActivity.class));
+                                        return;
+                                    }
+                                    else {
+                                        startActivity(new Intent(MainActivity.this, MainScreen.class));
+                                        return;
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                            startActivity(new Intent(MainActivity.this, MainScreen.class));
+
+
                             startActivity(new Intent(MainActivity.this, MainScreen.class));
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                             finish();
@@ -157,5 +222,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

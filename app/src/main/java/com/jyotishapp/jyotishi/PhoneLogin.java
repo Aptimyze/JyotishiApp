@@ -27,6 +27,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
@@ -43,6 +48,9 @@ public class PhoneLogin extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     String verificationId;
+    FirebaseDatabase database;
+    DatabaseReference mRef;
+    View loadingView;
 
 
     @Override
@@ -51,6 +59,8 @@ public class PhoneLogin extends AppCompatActivity {
         setContentView(R.layout.activity_phone_login);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        //references
         ccp = (CountryCodePicker) findViewById(R.id.countryCodePicker);
         requestOtp = (MaterialButton) findViewById(R.id.reqestotp);
         number = (EditText) findViewById(R.id.phoneNumber);
@@ -59,11 +69,15 @@ public class PhoneLogin extends AppCompatActivity {
         ccp.registerCarrierNumberEditText(number);
         enterOtp = (TextView) findViewById(R.id.enterOtp);
         didntGetOtp = (TextView) findViewById(R.id.didntGetOtp);
+        loadingView = (View) findViewById(R.id.loading_view);
 
+        //backend references
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        mRef = database.getReference().child("Users");
 
-        //phone logim
+        //phone login
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
@@ -80,6 +94,7 @@ public class PhoneLogin extends AppCompatActivity {
                 super.onCodeSent(s, forceResendingToken);
                 verificationId = s;
                 Log.v("AAA", "OTP Sent successfully");
+                Toast.makeText(PhoneLogin.this, getString(R.string.code_sent), Toast.LENGTH_SHORT).show();
             }
 
 
@@ -90,6 +105,7 @@ public class PhoneLogin extends AppCompatActivity {
         otp.setOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(String value) {
+                loadingView.setVisibility(View.VISIBLE);
                 verifyNumberWithCode(otp.getText().toString(), verificationId);
             }
         });
@@ -113,7 +129,7 @@ public class PhoneLogin extends AppCompatActivity {
         closeKeyboard();
         String fNumber = ccp.getFullNumberWithPlus();
         if(!ccp.isValidFullNumber()) {
-            Toast.makeText(PhoneLogin.this, "Please enter a valid number", Toast.LENGTH_LONG).show();
+            Toast.makeText(PhoneLogin.this, getString(R.string.enter_valid_number), Toast.LENGTH_LONG).show();
             return;
         }
         enterOtp.setVisibility(View.VISIBLE);
@@ -128,7 +144,7 @@ public class PhoneLogin extends AppCompatActivity {
         Log.v("AAAA", ccp.getFullNumberWithPlus());
         requestOtp.setClickable(false);
         otpProcessing(fNumber);
-        Toast.makeText(PhoneLogin.this, "OTP request Sent", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PhoneLogin.this, getString(R.string.otp_request_sent), Toast.LENGTH_SHORT).show();
     }
 
     protected void otpProcessing(String number){
@@ -142,20 +158,69 @@ public class PhoneLogin extends AppCompatActivity {
     }
 
     protected void verifyNumberWithCode(String otp, String verificationId){
+        if(verificationId == null){
+            Toast.makeText(PhoneLogin.this, getString(R.string.error_occured), Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, otp);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new com.google.android.gms.tasks.OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            //TODO: spinner stop
                             Log.v("AAA", "Sign in successful");
-                            Toast.makeText(PhoneLogin.this, "Signed in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PhoneLogin.this, getString(R.string.signed_in), Toast.LENGTH_SHORT).show();
+                            mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Name");
+                            mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(!dataSnapshot.exists()){
+                                        startActivity(new Intent(PhoneLogin.this, InformationActivity.class));
+                                        return;
+                                    }
+                                    else {
+                                        startActivity(new Intent(PhoneLogin.this, MainScreen.class));
+                                        return;
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                             startActivity(new Intent(PhoneLogin.this, MainScreen.class));
+
                         }
                         else {
-                            Toast.makeText(PhoneLogin.this, "Please enter the correct OTP", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PhoneLogin.this, getString(R.string.enter_correct_otp), Toast.LENGTH_SHORT).show();
+                            loadingView.setVisibility(View.GONE);
                         }
                     }
                 });
+    }
+
+    public void resendOTP(View view){
+        closeKeyboard();
+        String fNumber = ccp.getFullNumberWithPlus();
+        if(!ccp.isValidFullNumber()) {
+            Toast.makeText(PhoneLogin.this, getString(R.string.enter_valid_number), Toast.LENGTH_LONG).show();
+            return;
+        }
+        enterOtp.setVisibility(View.VISIBLE);
+        otp.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                didntGetOtp.setVisibility(View.VISIBLE);
+                resendOtp.setVisibility(View.VISIBLE);
+            }
+        }, 5000);
+        Log.v("AAAA", ccp.getFullNumberWithPlus());
+        requestOtp.setClickable(false);
+        otpProcessing(fNumber);
+        Toast.makeText(PhoneLogin.this, getString(R.string.otp_request_sent), Toast.LENGTH_SHORT).show();
     }
 }

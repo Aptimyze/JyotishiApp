@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -19,19 +19,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LanguageActivity"
+            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".UserProfileActivity"
+            android:parentActivityName=".MainScreen"
+            android:launchMode="singleTop"/>
+
+        <meta-data
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
+
+        <activity android:name=".InformationActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".JyotishProfilesActivity"
+            android:parentActivityName=".MainScreen"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".VidCallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_vid_call"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ChatActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".MainScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Jyotishi"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/FullscreenTheme"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,8 +60,10 @@
         </activity>
         <activity
             android:name=".PhoneLogin"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

@@ -14,4 +14,5 @@
     <color name="colorAccent1">#FE9A2E</color>
     <color name="black_overlay">#66000000</color>
     <color name="remote_background">#2e2e2e</color>
+    <color name="dark_gray">#585858</color>
 </resources>

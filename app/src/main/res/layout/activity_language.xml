@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LanguageActivity">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/english"
+        style="@style/Theme.MaterialComponents.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="englishButt"
+        android:padding="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:text="English"
+        app:cornerRadius="10dp"
+
+        app:rippleColor="#D99B08" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/hindi"
+        style="@style/Theme.MaterialComponents.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="hindiButt"
+        android:padding="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:text="हिंदी"
+        app:cornerRadius="10dp"
+        app:rippleColor="#D99B08" />
+
+</LinearLayout>

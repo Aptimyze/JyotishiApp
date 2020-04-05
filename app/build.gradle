@@ -1,5 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.4, 0.99.99]'
+    }
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+repositories {
+    maven { url 'https://maven.google.com' }
+}
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+
 
 android {
     compileSdkVersion 29
@@ -9,8 +23,13 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "0.2.0"
+        versionName "0.8.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                onesignal_app_id               : '079113b2-8741-4358-8d9f-f58fac6f686a',
+                // Project number pulled from dashboard, local value is ignored.
+                onesignal_google_project_number: 'REMOTE'
+        ]
     }
     buildTypes {
         release {
@@ -34,11 +53,14 @@ dependencies {
     implementation 'com.github.swapnil1104:OtpEditText:f68545dc13f1b781d36266925c8703d7d028f06d'
     implementation 'com.hbb20:ccp:2.3.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'io.github.yavski:fab-speed-dial:1.0.6'
     implementation 'com.google.firebase:firebase-database:16.0.4'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.firebaseui:firebase-ui-database:6.0.2'
     implementation 'io.agora.rtc:full-sdk:2.4.1'
+    implementation 'com.onesignal:OneSignal:[3.11.2, 3.99.99]'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

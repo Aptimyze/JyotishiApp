@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".InformationActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userNameL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="60dp"
+        android:hint="@string/name_enter">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName|textCapWords"
+            tools:layout_editor_absoluteX="3dp"
+            tools:layout_editor_absoluteY="118dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userAgeL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="30dp"
+
+        android:hint="@string/age_enter">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            tools:layout_editor_absoluteX="3dp"
+            tools:layout_editor_absoluteY="118dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerLang"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/proceed"
+        style="@style/Theme.MaterialComponents.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="34dp"
+        android:onClick="proceedClicked"
+        android:clickable="true"
+        android:padding="15dp"
+        android:text="@string/proceed"
+        app:cornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:rippleColor="#D99B08" />
+
+
+
+
+</LinearLayout>
