@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ import org.w3c.dom.Text;
 public class UserProfileActivity extends AppCompatActivity {
     FirebaseDatabase database;
     FirebaseAuth mAuth;
-    TextView name, age, lang;
+    TextView name, age, lang, contact;
     DatabaseReference mRef;
     String nameI = "", ageI ="";
 
@@ -28,12 +29,14 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.gradientEndYellow)));
 
 
         //references
         name = (TextView) findViewById(R.id.name);
         age = (TextView) findViewById(R.id.age);
         lang = (TextView) findViewById(R.id.lang);
+        contact = (TextView) findViewById(R.id.contact);
 
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -48,10 +51,14 @@ public class UserProfileActivity extends AppCompatActivity {
                 nameI = dataSnapshot.child("Name").getValue().toString();
                 ageI = dataSnapshot.child("Age").getValue().toString();
                 if(dataSnapshot.child("commLang").getValue() != null){
-                    lang.setText(getString(R.string.langu) + ": \n" + dataSnapshot.child("commLang").getValue().toString());
+                    lang.setText(dataSnapshot.child("commLang").getValue().toString());
                 }
-                name.setText(getString(R.string.name) + ": \n" + nameI);
-                age.setText(getString(R.string.age) + ": \n" + ageI);
+                name.setText(nameI);
+                age.setText(ageI + " years");
+                if(!mAuth.getCurrentUser().getPhoneNumber().equals(""))
+                    contact.setText(mAuth.getCurrentUser().getPhoneNumber());
+                else
+                    contact.setText("N/A");
             }
 
             @Override

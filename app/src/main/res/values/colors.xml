@@ -15,4 +15,8 @@
     <color name="black_overlay">#66000000</color>
     <color name="remote_background">#2e2e2e</color>
     <color name="dark_gray">#585858</color>
+    <color name="gradientStartYellow">#DBA901</color>
+    <color name="gradientEndYellow">#FACC2E</color>
+    <color name="whiteYellow">#FBF5EF</color>
+    <color name="toolbar_color">#F5DA81</color>
 </resources>
