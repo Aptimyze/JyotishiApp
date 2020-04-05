@@ -33,7 +33,7 @@
     <string name="proceed">आगे बढ़ना</string>
     <string name="login_again">कृपया फिर से लॉगिन करें</string>
     <string name="logged_out">लॉग आउट किया</string>
-    <string name="error_occured">कोई त्रुटि उत्पन्न हुई</string>
+    <string name="error_occured">कोई त्रुटि उत्पन्न हुई, कृपया बाद में पुनः प्रयास करें</string>
     <string name="exit_question">क्या बाहर जाना चाहते हो?</string>
     <string name="yes">हाँ</string>
     <string name="no">नहीं</string>

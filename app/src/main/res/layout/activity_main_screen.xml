@@ -114,4 +114,6 @@
             app:rippleColor="#D99B08" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <include layout="@layout/view_loading"/>
+
 </FrameLayout>

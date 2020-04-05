@@ -50,6 +50,7 @@ public class PhoneLogin extends AppCompatActivity {
     String verificationId;
     FirebaseDatabase database;
     DatabaseReference mRef;
+    View loadingView;
 
 
     @Override
@@ -68,6 +69,7 @@ public class PhoneLogin extends AppCompatActivity {
         ccp.registerCarrierNumberEditText(number);
         enterOtp = (TextView) findViewById(R.id.enterOtp);
         didntGetOtp = (TextView) findViewById(R.id.didntGetOtp);
+        loadingView = (View) findViewById(R.id.loading_view);
 
         //backend references
         mAuth = FirebaseAuth.getInstance();
@@ -75,7 +77,7 @@ public class PhoneLogin extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         mRef = database.getReference().child("Users");
 
-        //phone logim
+        //phone login
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
@@ -103,6 +105,7 @@ public class PhoneLogin extends AppCompatActivity {
         otp.setOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(String value) {
+                loadingView.setVisibility(View.VISIBLE);
                 verifyNumberWithCode(otp.getText().toString(), verificationId);
             }
         });
@@ -155,6 +158,11 @@ public class PhoneLogin extends AppCompatActivity {
     }
 
     protected void verifyNumberWithCode(String otp, String verificationId){
+        if(verificationId == null){
+            Toast.makeText(PhoneLogin.this, getString(R.string.error_occured), Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, otp);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new com.google.android.gms.tasks.OnCompleteListener<AuthResult>() {
@@ -188,6 +196,7 @@ public class PhoneLogin extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(PhoneLogin.this, getString(R.string.enter_correct_otp), Toast.LENGTH_SHORT).show();
+                            loadingView.setVisibility(View.GONE);
                         }
                     }
                 });

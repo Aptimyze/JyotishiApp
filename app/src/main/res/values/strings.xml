@@ -32,7 +32,7 @@
     <string name="proceed">Proceed</string>
     <string name="login_again">Please Login Again</string>
     <string name="logged_out">Logged Out</string>
-    <string name="error_occured">An error occurred</string>
+    <string name="error_occured">An error occurred, please try later</string>
     <string name="exit_question">Do you want to exit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>

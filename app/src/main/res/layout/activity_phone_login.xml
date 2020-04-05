@@ -128,4 +128,8 @@
         app:layout_constraintTop_toBottomOf="@+id/didntGetOtp"
         android:onClick="resendOTP"/>
 
+    <include layout="@layout/view_loading"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
