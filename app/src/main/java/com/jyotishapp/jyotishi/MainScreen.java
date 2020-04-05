@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -21,14 +22,17 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,6 +63,10 @@ public class MainScreen extends AppCompatActivity {
     DatabaseReference mRef;
     AlertDialog.Builder dialog;
     ConstraintLayout bg;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    TextView usersName;
+    View headerLayout;
     private static final String[] REQUESTED_PERMISSIONS = {
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
@@ -105,6 +113,55 @@ public class MainScreen extends AppCompatActivity {
         imageBorder = (LinearLayout) findViewById(R.id.imageBorder);
         dialog = new AlertDialog.Builder(this);
         bg = (ConstraintLayout) findViewById(R.id.bg);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        navigationView = (NavigationView) findViewById(R.id.nView);
+        headerLayout = navigationView.getHeaderView(0);
+        usersName = (TextView) headerLayout.findViewById(R.id.usersName);
+
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                usersName.setText(dataSnapshot.child("Name").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id){
+                    case R.id.AudioCalls:
+                        Toast.makeText(MainScreen.this, "Voice Calls", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.VideoCalls:
+                        Toast.makeText(MainScreen.this, "Video Calls", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.settings:
+                        Toast.makeText(MainScreen.this, "Settings", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.BuyPremium:
+                        Toast.makeText(MainScreen.this, "Buy Premium", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.TermsAndConditions:
+                        Toast.makeText(MainScreen.this, "Terms & Conditions", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+                        break;
+                        default:
+                            return true;
+
+                }
+                return true;
+            }
+        });
 
         TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.mess)
@@ -204,6 +261,11 @@ public class MainScreen extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public void drawerOpen(View view){
+        drawerLayout.openDrawer(Gravity.LEFT);
+        fabsd.closeMenu();
     }
 
     @Override
