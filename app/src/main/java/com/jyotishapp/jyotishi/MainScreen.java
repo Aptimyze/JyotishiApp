@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -57,6 +58,7 @@ public class MainScreen extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference mRef;
     AlertDialog.Builder dialog;
+    ConstraintLayout bg;
     private static final String[] REQUESTED_PERMISSIONS = {
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
@@ -69,14 +71,14 @@ public class MainScreen extends AppCompatActivity {
         loadLocale();
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser() == null) {
+        if (mAuth.getCurrentUser() == null) {
             startActivity(new Intent(MainScreen.this, LanguageActivity.class));
             finish();
             Toast.makeText(MainScreen.this, getString(R.string.login_again), Toast.LENGTH_SHORT).show();
             return;
         }
         uid = mAuth.getCurrentUser().getUid();
-        for(int i=0; i<2; i++){
+        for (int i = 0; i < 2; i++) {
             checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID);
         }
         FirebaseDatabase.getInstance().getReference().child("CurrentVidCall").removeValue();
@@ -86,7 +88,7 @@ public class MainScreen extends AppCompatActivity {
             database = FirebaseDatabase.getInstance();
             mRef = database.getReference().child("Users");
             mRef = mRef.child(mAuth.getCurrentUser().getUid());
-        }catch (Exception e) {
+        } catch (Exception e) {
             startActivity(new Intent(MainScreen.this, LanguageActivity.class));
             finish();
             Toast.makeText(MainScreen.this, getString(R.string.login_again), Toast.LENGTH_SHORT).show();
@@ -102,6 +104,7 @@ public class MainScreen extends AppCompatActivity {
         fabsd = (FabSpeedDial) findViewById(R.id.tool);
         imageBorder = (LinearLayout) findViewById(R.id.imageBorder);
         dialog = new AlertDialog.Builder(this);
+        bg = (ConstraintLayout) findViewById(R.id.bg);
 
         TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.mess)
@@ -125,23 +128,22 @@ public class MainScreen extends AppCompatActivity {
                     }
                 });
         bmb.addBuilder(builder1);
-
-        fabsd.setMenuListener(new SimpleMenuListenerAdapter(){
+        fabsd.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
             public boolean onMenuItemSelected(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.profile:
                         startActivity(new Intent(MainScreen.this, UserProfileActivity.class));
-                        Log.v("AAA", menuItem.getItemId()+" " + R.id.profile);
+                        Log.v("AAA", menuItem.getItemId() + " " + R.id.profile);
                         break;
                     case R.id.signout:
                         Toast.makeText(MainScreen.this, getString(R.string.logged_out), Toast.LENGTH_SHORT).show();
-                        Log.v("AAA", menuItem.getItemId()+"");
+                        Log.v("AAA", menuItem.getItemId() + "");
                         logout();
                         break;
                     case R.id.language:
                         startActivity(new Intent(MainScreen.this, LanguageActivity.class));
-                        Log.v("AAA", menuItem.getItemId()+" " + R.id.language);
+                        Log.v("AAA", menuItem.getItemId() + " " + R.id.language);
                         break;
                     default:
                         Toast.makeText(MainScreen.this, getString(R.string.error_occured), Toast.LENGTH_SHORT).show();
@@ -173,13 +175,18 @@ public class MainScreen extends AppCompatActivity {
         imageBorder.setAnimation(rotateAnimation);
     }
 
-    public void loadLocale(){
+    public void bgClicked(View view) {
+        fabsd.closeMenu();
+    }
+
+
+    public void loadLocale() {
         SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = prefs.getString("My_Lang", "");
         setLocale(language);
     }
 
-    public void setLocale(String language){
+    public void setLocale(String language) {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -190,8 +197,8 @@ public class MainScreen extends AppCompatActivity {
         editor.apply();
     }
 
-    private boolean checkSelfPermission(String permission, int requestCode){
-        if(ContextCompat.checkSelfPermission(this, permission ) != PackageManager.PERMISSION_GRANTED){
+    private boolean checkSelfPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, requestCode);
             Log.v("AAA", permission);
             return false;
@@ -223,19 +230,22 @@ public class MainScreen extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void picClick(View view){
+    public void picClick(View view) {
+        fabsd.closeMenu();
         bmb.boom();
     }
 
-    public void exploreOptionsClicked(View view){
+    public void exploreOptionsClicked(View view) {
+        fabsd.closeMenu();
         bmb.boom();
     }
 
-    public void viewJyotishProfilesClicked(View view){
+    public void viewJyotishProfilesClicked(View view) {
+        fabsd.closeMenu();
         startActivity(new Intent(MainScreen.this, JyotishProfilesActivity.class));
     }
 
-    public void logout(){
+    public void logout() {
         OneSignal.setSubscription(false);
         FirebaseAuth.getInstance().signOut();
 

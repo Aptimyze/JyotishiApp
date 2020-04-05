@@ -116,19 +116,18 @@ public class PhoneLogin extends AppCompatActivity {
         Log.v("AAA", "Back Pressed");
     }
 
-    public void closeKeyboard(){
+    public void closeKeyboard() {
         View view = this.getCurrentFocus();
-        if(view != null){
+        if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
-    public void requested(View view)
-    {
+    public void requested(View view) {
         closeKeyboard();
         String fNumber = ccp.getFullNumberWithPlus();
-        if(!ccp.isValidFullNumber()) {
+        if (!ccp.isValidFullNumber()) {
             Toast.makeText(PhoneLogin.this, getString(R.string.enter_valid_number), Toast.LENGTH_LONG).show();
             return;
         }
@@ -147,7 +146,7 @@ public class PhoneLogin extends AppCompatActivity {
         Toast.makeText(PhoneLogin.this, getString(R.string.otp_request_sent), Toast.LENGTH_SHORT).show();
     }
 
-    protected void otpProcessing(String number){
+    protected void otpProcessing(String number) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 number,
                 10,
@@ -157,8 +156,8 @@ public class PhoneLogin extends AppCompatActivity {
         );
     }
 
-    protected void verifyNumberWithCode(String otp, String verificationId){
-        if(verificationId == null){
+    protected void verifyNumberWithCode(String otp, String verificationId) {
+        if (verificationId == null) {
             Toast.makeText(PhoneLogin.this, getString(R.string.error_occured), Toast.LENGTH_LONG).show();
             finish();
             return;
@@ -168,7 +167,7 @@ public class PhoneLogin extends AppCompatActivity {
                 .addOnCompleteListener(this, new com.google.android.gms.tasks.OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             //TODO: spinner stop
                             Log.v("AAA", "Sign in successful");
                             Toast.makeText(PhoneLogin.this, getString(R.string.signed_in), Toast.LENGTH_SHORT).show();
@@ -176,11 +175,10 @@ public class PhoneLogin extends AppCompatActivity {
                             mRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if(!dataSnapshot.exists()){
+                                    if (!dataSnapshot.exists()) {
                                         startActivity(new Intent(PhoneLogin.this, InformationActivity.class));
                                         return;
-                                    }
-                                    else {
+                                    } else {
                                         startActivity(new Intent(PhoneLogin.this, MainScreen.class));
                                         return;
                                     }
@@ -193,8 +191,7 @@ public class PhoneLogin extends AppCompatActivity {
                             });
                             startActivity(new Intent(PhoneLogin.this, MainScreen.class));
 
-                        }
-                        else {
+                        } else {
                             Toast.makeText(PhoneLogin.this, getString(R.string.enter_correct_otp), Toast.LENGTH_SHORT).show();
                             loadingView.setVisibility(View.GONE);
                         }
@@ -202,10 +199,10 @@ public class PhoneLogin extends AppCompatActivity {
                 });
     }
 
-    public void resendOTP(View view){
+    public void resendOTP(View view) {
         closeKeyboard();
         String fNumber = ccp.getFullNumberWithPlus();
-        if(!ccp.isValidFullNumber()) {
+        if (!ccp.isValidFullNumber()) {
             Toast.makeText(PhoneLogin.this, getString(R.string.enter_valid_number), Toast.LENGTH_LONG).show();
             return;
         }

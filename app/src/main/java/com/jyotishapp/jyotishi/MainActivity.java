@@ -57,12 +57,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
-        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             startActivity(new Intent(MainActivity.this, MainScreen.class));
             finish();
             return;
         }
-
 
 
         database = FirebaseDatabase.getInstance();
@@ -86,13 +85,13 @@ public class MainActivity extends AppCompatActivity {
         addBuilder();
     }
 
-    public void loadLocale(){
+    public void loadLocale() {
         SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = prefs.getString("My_Lang", "");
         setLocale(language);
     }
 
-    public void setLocale(String language){
+    public void setLocale(String language) {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void addBuilder(){
+    public void addBuilder() {
         HamButton.Builder builder = new HamButton.Builder()
                 .normalImageRes(R.drawable.mail)
                 .normalTextRes(R.string.mail)
@@ -153,14 +152,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .imagePadding(new Rect(10, 10, 10, 10));
-            bmb.addBuilder(builder);
-            bmb.addBuilder(builder1);
-            bmb.addBuilder(builder2);
+        bmb.addBuilder(builder);
+        bmb.addBuilder(builder1);
+        bmb.addBuilder(builder2);
 
     }
 
-    protected void googleSignIn(){
-        if(firebaseUser != null)
+    protected void googleSignIn() {
+        if (firebaseUser != null)
             Toast.makeText(MainActivity.this, getString(R.string.signed_in_as) + firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
         Intent googleSignInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(googleSignInIntent, RC_SIGNIN);
@@ -168,38 +167,37 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(mAuth.getCurrentUser() != null)
+        if (mAuth.getCurrentUser() != null)
             return;
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGNIN){
+        if (requestCode == RC_SIGNIN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try{
+            try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
                 Toast.makeText(MainActivity.this, getString(R.string.signed_in_as) + account.getDisplayName(), Toast.LENGTH_SHORT).show();
-            }catch (ApiException e){
+            } catch (ApiException e) {
                 Toast.makeText(MainActivity.this, getString(R.string.couldnt_sign_in), Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account){
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Log.v("AAAA", "Success");
                             mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Name");
                             mRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if(!dataSnapshot.exists()){
+                                    if (!dataSnapshot.exists()) {
                                         startActivity(new Intent(MainActivity.this, InformationActivity.class));
                                         return;
-                                    }
-                                    else {
+                                    } else {
                                         startActivity(new Intent(MainActivity.this, MainScreen.class));
                                         return;
                                     }
@@ -216,8 +214,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(MainActivity.this, MainScreen.class));
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                             finish();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
                         }
                     }
