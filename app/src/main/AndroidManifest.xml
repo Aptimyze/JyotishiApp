@@ -19,39 +19,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LanguageActivity"
-            android:launchMode="singleTop"></activity>
+        <activity android:name=".SplashScreen"></activity>
+        <activity
+            android:name=".LanguageActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".UserProfileActivity"
-            android:parentActivityName=".MainScreen"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainScreen" />
 
         <meta-data
             android:name="com.onesignal.NotificationOpened.DEFAULT"
             android:value="DISABLE" />
 
-        <activity android:name=".InformationActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".InformationActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".JyotishProfilesActivity"
-            android:parentActivityName=".MainScreen"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainScreen" />
         <activity
             android:name=".VidCallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_vid_call"
-            android:theme="@style/FullscreenTheme"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".ChatActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Jyotishi"
-            android:theme="@style/FullscreenTheme"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,10 +63,11 @@
         </activity>
         <activity
             android:name=".PhoneLogin"
-            android:parentActivityName=".MainActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".MainActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

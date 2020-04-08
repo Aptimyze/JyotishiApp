@@ -78,6 +78,7 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         loadLocale();
         super.onCreate(savedInstanceState);
+        startActivity(new Intent(MainScreen.this, SplashScreen.class));
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() == null) {
             startActivity(new Intent(MainScreen.this, LanguageActivity.class));
@@ -171,6 +172,7 @@ public class MainScreen extends AppCompatActivity {
                     @Override
                     public void onBoomButtonClick(int index) {
                         startActivity(new Intent(MainScreen.this, ChatActivity.class));
+                        overridePendingTransition(R.anim.x_exit, R.anim.x_enter);
                     }
                 });
         bmb.addBuilder(builder);
