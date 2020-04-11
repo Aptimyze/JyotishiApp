@@ -78,7 +78,7 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         loadLocale();
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(MainScreen.this, SplashScreen.class));
+//        startActivity(new Intent(MainScreen.this, SplashScreen.class));
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() == null) {
             startActivity(new Intent(MainScreen.this, LanguageActivity.class));
@@ -187,6 +187,18 @@ public class MainScreen extends AppCompatActivity {
                     }
                 });
         bmb.addBuilder(builder1);
+        TextInsideCircleButton.Builder builder2 = new TextInsideCircleButton.Builder()
+                .normalImageRes(R.drawable.audio_white_icon)
+                .imagePadding(new Rect(15, 15, 15, 15))
+                .normalText(getString(R.string.audio))
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+//                        startActivity(new Intent(MainScreen.this, VidCallActivity.class));
+                        Toast.makeText(MainScreen.this, "Audio Call", Toast.LENGTH_LONG).show();
+                    }
+                });
+        bmb.addBuilder(builder2);
         fabsd.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
             public boolean onMenuItemSelected(MenuItem menuItem) {

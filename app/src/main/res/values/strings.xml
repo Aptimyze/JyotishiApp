@@ -40,6 +40,7 @@
     <string name="explore_options">Explore Options</string>
     <string name="chat">Chat</string>
     <string name="video">Video</string>
+    <string name="audio">Voice</string>
     <string name="clear_chat">Clear Chat</string>
     <string name="name">Name</string>
     <string name="age">Age</string>
