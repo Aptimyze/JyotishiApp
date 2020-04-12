@@ -194,7 +194,7 @@ public class MainScreen extends AppCompatActivity {
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-//                        startActivity(new Intent(MainScreen.this, VidCallActivity.class));
+                        startActivity(new Intent(MainScreen.this, VoiceCallActivity.class));
                         Toast.makeText(MainScreen.this, "Audio Call", Toast.LENGTH_LONG).show();
                     }
                 });

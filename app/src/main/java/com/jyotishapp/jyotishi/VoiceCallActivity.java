@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
@@ -39,6 +40,14 @@ public class VoiceCallActivity extends AppCompatActivity {
         }
     };
 
+    private void onRemoteUserLeft(int uid, int reason){
+        Toast.makeText(VoiceCallActivity.this, "The user has left.", Toast.LENGTH_LONG).show();
+    }
+
+    private void onRemoteUserMutedAudio(int uid, boolean muted){
+        Toast.makeText(VoiceCallActivity.this, "The user has put you call on hold.", Toast.LENGTH_LONG).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +73,7 @@ public class VoiceCallActivity extends AppCompatActivity {
 
     private void joinChannel(){
         String accessToken = getString(R.string.access_token);
-        if(TextUtils.equals(accessToken, "") || TextUtils.equals(accessToken, "YOUR ACCESS TOKEN")){
+        if(TextUtils.isEmpty(accessToken) || TextUtils.equals(accessToken, "YOUR ACCESS TOKEN")){
             accessToken = null;
         }
         rtcEngine.joinChannel(accessToken, "voiceDemoChannel", "Extra Optional Data", 0);
@@ -84,5 +93,13 @@ public class VoiceCallActivity extends AppCompatActivity {
 
     private void leaveChannel(){
         rtcEngine.leaveChannel();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        leaveChannel();
+        RtcEngine.destroy();
+        rtcEngine = null;
     }
 }
