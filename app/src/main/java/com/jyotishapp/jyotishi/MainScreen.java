@@ -172,7 +172,7 @@ public class MainScreen extends AppCompatActivity {
                     @Override
                     public void onBoomButtonClick(int index) {
                         startActivity(new Intent(MainScreen.this, ChatActivity.class));
-                        overridePendingTransition(R.anim.x_exit, R.anim.x_enter);
+//                        overridePendingTransition(R.anim.x_exit, R.anim.x_enter);
                     }
                 });
         bmb.addBuilder(builder);

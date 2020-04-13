@@ -19,4 +19,8 @@
     <color name="gradientEndYellow">#FACC2E</color>
     <color name="whiteYellow">#FBF5EF</color>
     <color name="toolbar_color">#F5DA81</color>
+    <color name="e2e2e">#2E2E2E</color>
+    <color name="voicebg">#F7F2E0</color>
+    <color name="red">#FF0000</color>
+    <color name="disabled">#848484</color>
 </resources>

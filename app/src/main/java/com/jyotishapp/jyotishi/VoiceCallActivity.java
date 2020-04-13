@@ -38,6 +38,11 @@ public class VoiceCallActivity extends AppCompatActivity {
                 }
             });
         }
+
+        @Override
+        public void onUserJoined(int uid, int elapsed) {
+            super.onUserJoined(uid, elapsed);
+        }
     };
 
     private void onRemoteUserLeft(int uid, int reason){
@@ -45,13 +50,14 @@ public class VoiceCallActivity extends AppCompatActivity {
     }
 
     private void onRemoteUserMutedAudio(int uid, boolean muted){
-        Toast.makeText(VoiceCallActivity.this, "The user has put you call on hold.", Toast.LENGTH_LONG).show();
+        Toast.makeText(VoiceCallActivity.this, "The user has put your call on hold.", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice_call);
+        getSupportActionBar().hide();
 
         if(checkSelfPermission(PERMISSION_REQ_ID_RECORD_AUDIO))
             initializeAgoraEngineAndJoinChannel();

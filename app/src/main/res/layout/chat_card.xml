@@ -12,7 +12,6 @@
         android:background="@drawable/chatmessage"
         android:layout_width="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="right"
         android:layout_height="wrap_content">
 
         <TextView
@@ -20,13 +19,11 @@
             android:layout_height="wrap_content"
             android:text="Sender"
             android:id="@+id/sender"
-            android:layout_gravity="right"
             android:textStyle="bold"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textMessage"
-            android:layout_gravity="right"
             android:text="Text Message ka text text text"/>
         <TextView
             android:layout_width="wrap_content"
@@ -34,7 +31,6 @@
             android:text="1/1/2000, 00:00"
             android:textStyle="italic"
             android:textSize="10dp"
-            android:gravity="left"
             android:id="@+id/time"
             />
     </LinearLayout>
