@@ -27,6 +27,7 @@
             android:layout_gravity="center"
             android:src="@drawable/user_icon"/>
         <TextView
+            android:id="@+id/timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Calling..."
@@ -50,12 +51,14 @@
             android:orientation="horizontal"
             android:weightSum="3">
             <LinearLayout
+                android:id="@+id/mute_container"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:layout_height="match_parent"
                 android:gravity="center">
                 <ImageView
+                    android:id="@+id/mute"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:tint="@color/disabled"
@@ -63,10 +66,12 @@
                     android:src="@drawable/mute_audio_icon"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/hold_container"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/hold"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
@@ -75,10 +80,12 @@
                     android:src="@drawable/hold_call_icon"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/speaker_container"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/speaker"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
@@ -152,6 +159,7 @@
         android:gravity="center_vertical"
         android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/end_call"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center_horizontal"
