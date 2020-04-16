@@ -246,7 +246,7 @@ public class VidCallActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.v("AAA", "Join channer success: " + (uid & 0xFFFFFFFL));
+                    Log.v("AAA", "Join channel success: " + (uid & 0xFFFFFFFL));
                 }
             });
         }

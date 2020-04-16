@@ -168,33 +168,36 @@ public class ChatActivity extends AppCompatActivity {
 
         public void setOriginContainer(){
             parentContainer = (LinearLayout) mView.findViewById(R.id.parentContainer);
-            parentContainer.setGravity(Gravity.LEFT);
+            parentContainer.setGravity(Gravity.END);
             messageContainer = (LinearLayout) mView.findViewById(R.id.layoutContainer);
-            messageContainer.setGravity(Gravity.LEFT);
+            messageContainer.setGravity(Gravity.END);
             messageContainer.setBackgroundResource(R.drawable.chatmessage);
         }
 
         public void setContainer(){
             parentContainer = (LinearLayout) mView.findViewById(R.id.parentContainer);
-            parentContainer.setGravity(Gravity.LEFT);
+            parentContainer.setGravity(Gravity.START);
             messageContainer = (LinearLayout) mView.findViewById(R.id.layoutContainer);
-            messageContainer.setGravity(Gravity.LEFT);
+            messageContainer.setGravity(Gravity.START);
             messageContainer.setBackgroundResource(R.drawable.senderchatmessage);
         }
 
         public void setTextMessage(String message){
             TextView textMessage = (TextView) mView.findViewById(R.id.textMessage);
             textMessage.setText(message);
+            textMessage.setGravity(Gravity.START);
         }
 
         public void setSender(String sender){
             TextView senderView = (TextView) mView.findViewById(R.id.sender);
             senderView.setText(sender);
+            senderView.setGravity(Gravity.START);
         }
 
         public void setTime(String time){
             TextView timeDate = (TextView) mView.findViewById(R.id.time);
             timeDate.setText(time);
+            timeDate.setGravity(Gravity.START);
         }
     }
 

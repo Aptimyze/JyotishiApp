@@ -7,8 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -20,14 +22,17 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,6 +62,11 @@ public class MainScreen extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference mRef;
     AlertDialog.Builder dialog;
+    ConstraintLayout bg;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    TextView usersName;
+    View headerLayout;
     private static final String[] REQUESTED_PERMISSIONS = {
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
@@ -68,15 +78,16 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         loadLocale();
         super.onCreate(savedInstanceState);
+//        startActivity(new Intent(MainScreen.this, SplashScreen.class));
         mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser() == null) {
+        if (mAuth.getCurrentUser() == null) {
             startActivity(new Intent(MainScreen.this, LanguageActivity.class));
             finish();
             Toast.makeText(MainScreen.this, getString(R.string.login_again), Toast.LENGTH_SHORT).show();
             return;
         }
         uid = mAuth.getCurrentUser().getUid();
-        for(int i=0; i<2; i++){
+        for (int i = 0; i < 2; i++) {
             checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID);
         }
         FirebaseDatabase.getInstance().getReference().child("CurrentVidCall").removeValue();
@@ -86,7 +97,7 @@ public class MainScreen extends AppCompatActivity {
             database = FirebaseDatabase.getInstance();
             mRef = database.getReference().child("Users");
             mRef = mRef.child(mAuth.getCurrentUser().getUid());
-        }catch (Exception e) {
+        } catch (Exception e) {
             startActivity(new Intent(MainScreen.this, LanguageActivity.class));
             finish();
             Toast.makeText(MainScreen.this, getString(R.string.login_again), Toast.LENGTH_SHORT).show();
@@ -102,6 +113,56 @@ public class MainScreen extends AppCompatActivity {
         fabsd = (FabSpeedDial) findViewById(R.id.tool);
         imageBorder = (LinearLayout) findViewById(R.id.imageBorder);
         dialog = new AlertDialog.Builder(this);
+        bg = (ConstraintLayout) findViewById(R.id.bg);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        navigationView = (NavigationView) findViewById(R.id.nView);
+        headerLayout = navigationView.getHeaderView(0);
+        usersName = (TextView) headerLayout.findViewById(R.id.usersName);
+
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                usersName.setText(dataSnapshot.child("Name").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id){
+                    case R.id.AudioCalls:
+                        Toast.makeText(MainScreen.this, "Voice Calls", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.VideoCalls:
+                        Toast.makeText(MainScreen.this, "Video Calls", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.settings:
+                        Toast.makeText(MainScreen.this, "Settings", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.BuyPremium:
+                        Toast.makeText(MainScreen.this, "Buy Premium", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.TermsAndConditions:
+                        Toast.makeText(MainScreen.this, "Terms & Conditions", Toast.LENGTH_LONG).show();
+                        drawerLayout.closeDrawer(Gravity.LEFT);
+                        break;
+                        default:
+                            return true;
+
+                }
+                return true;
+            }
+        });
 
         TextInsideCircleButton.Builder builder = new TextInsideCircleButton.Builder()
                 .normalImageRes(R.drawable.mess)
@@ -111,6 +172,7 @@ public class MainScreen extends AppCompatActivity {
                     @Override
                     public void onBoomButtonClick(int index) {
                         startActivity(new Intent(MainScreen.this, ChatActivity.class));
+//                        overridePendingTransition(R.anim.x_exit, R.anim.x_enter);
                     }
                 });
         bmb.addBuilder(builder);
@@ -125,23 +187,34 @@ public class MainScreen extends AppCompatActivity {
                     }
                 });
         bmb.addBuilder(builder1);
-
-        fabsd.setMenuListener(new SimpleMenuListenerAdapter(){
+        TextInsideCircleButton.Builder builder2 = new TextInsideCircleButton.Builder()
+                .normalImageRes(R.drawable.audio_white_icon)
+                .imagePadding(new Rect(15, 15, 15, 15))
+                .normalText(getString(R.string.audio))
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        startActivity(new Intent(MainScreen.this, VoiceCallActivity.class));
+                        Toast.makeText(MainScreen.this, "Audio Call", Toast.LENGTH_LONG).show();
+                    }
+                });
+        bmb.addBuilder(builder2);
+        fabsd.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
             public boolean onMenuItemSelected(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.profile:
                         startActivity(new Intent(MainScreen.this, UserProfileActivity.class));
-                        Log.v("AAA", menuItem.getItemId()+" " + R.id.profile);
+                        Log.v("AAA", menuItem.getItemId() + " " + R.id.profile);
                         break;
                     case R.id.signout:
                         Toast.makeText(MainScreen.this, getString(R.string.logged_out), Toast.LENGTH_SHORT).show();
-                        Log.v("AAA", menuItem.getItemId()+"");
+                        Log.v("AAA", menuItem.getItemId() + "");
                         logout();
                         break;
                     case R.id.language:
                         startActivity(new Intent(MainScreen.this, LanguageActivity.class));
-                        Log.v("AAA", menuItem.getItemId()+" " + R.id.language);
+                        Log.v("AAA", menuItem.getItemId() + " " + R.id.language);
                         break;
                     default:
                         Toast.makeText(MainScreen.this, getString(R.string.error_occured), Toast.LENGTH_SHORT).show();
@@ -173,13 +246,18 @@ public class MainScreen extends AppCompatActivity {
         imageBorder.setAnimation(rotateAnimation);
     }
 
-    public void loadLocale(){
+    public void bgClicked(View view) {
+        fabsd.closeMenu();
+    }
+
+
+    public void loadLocale() {
         SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = prefs.getString("My_Lang", "");
         setLocale(language);
     }
 
-    public void setLocale(String language){
+    public void setLocale(String language) {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -190,13 +268,18 @@ public class MainScreen extends AppCompatActivity {
         editor.apply();
     }
 
-    private boolean checkSelfPermission(String permission, int requestCode){
-        if(ContextCompat.checkSelfPermission(this, permission ) != PackageManager.PERMISSION_GRANTED){
+    private boolean checkSelfPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, requestCode);
             Log.v("AAA", permission);
             return false;
         }
         return true;
+    }
+
+    public void drawerOpen(View view){
+        drawerLayout.openDrawer(Gravity.LEFT);
+        fabsd.closeMenu();
     }
 
     @Override
@@ -223,19 +306,22 @@ public class MainScreen extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void picClick(View view){
+    public void picClick(View view) {
+        fabsd.closeMenu();
         bmb.boom();
     }
 
-    public void exploreOptionsClicked(View view){
+    public void exploreOptionsClicked(View view) {
+        fabsd.closeMenu();
         bmb.boom();
     }
 
-    public void viewJyotishProfilesClicked(View view){
+    public void viewJyotishProfilesClicked(View view) {
+        fabsd.closeMenu();
         startActivity(new Intent(MainScreen.this, JyotishProfilesActivity.class));
     }
 
-    public void logout(){
+    public void logout() {
         OneSignal.setSubscription(false);
         FirebaseAuth.getInstance().signOut();
 
