@@ -125,6 +125,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:rippleColor="#D99B08" />
+
+        <include layout="@layout/incoming_voice_call"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout="@layout/view_loading"/>
@@ -139,7 +142,7 @@
         android:background="@color/white"
         />
 
-    <include layout="@layout/incoming_voice_call"/>
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
