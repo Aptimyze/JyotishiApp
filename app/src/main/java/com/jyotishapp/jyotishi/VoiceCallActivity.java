@@ -37,6 +37,7 @@ import io.agora.rtc.RtcEngine;
 
 public class VoiceCallActivity extends AppCompatActivity {
 
+    boolean clickable = false;
     boolean muteOn = false, speakerOn = false, holdOn = false;
     private TextView timer;
     private ImageView mute, speaker, hold;
@@ -105,51 +106,56 @@ public class VoiceCallActivity extends AppCompatActivity {
         mute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(muteOn) {
-                    Toast.makeText(VoiceCallActivity.this, "Mic on", Toast.LENGTH_LONG).show();
-                    muteOn = false;
-                    muteContainer.setBackground(getDrawable(R.color.white));
-                    mute.setColorFilter(Color.argb(255, 0, 0, 0));
-                } else {
-                    Toast.makeText(VoiceCallActivity.this, "Mic off", Toast.LENGTH_LONG).show();
-                    muteOn = true;
-                    muteContainer.setBackground(getDrawable(R.color.black));
-                    mute.setColorFilter(Color.argb(255, 255, 255, 255));
-                }
+                if(clickable)
+                    if(muteOn) {
+                        rtcEngine.muteLocalAudioStream(false);
+                        Toast.makeText(VoiceCallActivity.this, "Mic on", Toast.LENGTH_LONG).show();
+                        muteOn = false;
+                        muteContainer.setBackground(getDrawable(R.color.white));
+                        mute.setColorFilter(Color.argb(255, 0, 0, 0));
+                    } else {
+                        rtcEngine.muteLocalAudioStream(true);
+                        Toast.makeText(VoiceCallActivity.this, "Mic off", Toast.LENGTH_LONG).show();
+                        muteOn = true;
+                        muteContainer.setBackground(getDrawable(R.color.black));
+                        mute.setColorFilter(Color.argb(255, 255, 255, 255));
+                    }
             }
         });
 
         hold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(holdOn) {
-                    Toast.makeText(VoiceCallActivity.this, "Call resumed", Toast.LENGTH_LONG).show();
-                    holdOn = false;
-                    holdConatiner.setBackground(getDrawable(R.color.white));
-                    hold.setColorFilter(Color.argb(255, 0, 0, 0));
-                } else {
-                    Toast.makeText(VoiceCallActivity.this, "Call put on hold", Toast.LENGTH_LONG).show();
-                    holdOn = true;
-                    holdConatiner.setBackground(getDrawable(R.color.black));
-                    hold.setColorFilter(Color.argb(255, 255, 255, 255));
-                }
+                if(clickable)
+                    if(holdOn) {
+                        Toast.makeText(VoiceCallActivity.this, "Call resumed", Toast.LENGTH_LONG).show();
+                        holdOn = false;
+                        holdConatiner.setBackground(getDrawable(R.color.white));
+                        hold.setColorFilter(Color.argb(255, 0, 0, 0));
+                    } else {
+                        Toast.makeText(VoiceCallActivity.this, "Call put on hold", Toast.LENGTH_LONG).show();
+                        holdOn = true;
+                        holdConatiner.setBackground(getDrawable(R.color.black));
+                        hold.setColorFilter(Color.argb(255, 255, 255, 255));
+                    }
             }
         });
 
         speaker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(speakerOn) {
-                    Toast.makeText(VoiceCallActivity.this, "Hands Free On", Toast.LENGTH_LONG).show();
-                    speakerOn = false;
-                    speakerContainer.setBackground(getDrawable(R.color.white));
-                    speaker.setColorFilter(Color.argb(255, 0, 0, 0));
-                } else {
-                    Toast.makeText(VoiceCallActivity.this, "Speaker on", Toast.LENGTH_LONG).show();
-                    speakerOn = true;
-                    speakerContainer.setBackground(getDrawable(R.color.black));
-                    speaker.setColorFilter(Color.argb(255, 255, 255, 255));
-                }
+                if(clickable)
+                    if(speakerOn) {
+                        Toast.makeText(VoiceCallActivity.this, "Hands Free On", Toast.LENGTH_LONG).show();
+                        speakerOn = false;
+                        speakerContainer.setBackground(getDrawable(R.color.white));
+                        speaker.setColorFilter(Color.argb(255, 0, 0, 0));
+                    } else {
+                        Toast.makeText(VoiceCallActivity.this, "Speaker on", Toast.LENGTH_LONG).show();
+                        speakerOn = true;
+                        speakerContainer.setBackground(getDrawable(R.color.black));
+                        speaker.setColorFilter(Color.argb(255, 255, 255, 255));
+                    }
             }
         });
 
@@ -192,6 +198,7 @@ public class VoiceCallActivity extends AppCompatActivity {
     private void timerStart(){
 //        ViewGroup parent = (ViewGroup) this.timer.getParent();
 //        parent.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+        clickable = true;
         timer.setText("00:00");
         mute.setClickable(true);
         speaker.setClickable(true);
@@ -243,7 +250,8 @@ public class VoiceCallActivity extends AppCompatActivity {
     }
 
     private void leaveChannel(){
-        rtcEngine.leaveChannel();
+        if(rtcEngine!=null)
+            rtcEngine.leaveChannel();
     }
 
     @Override
