@@ -139,5 +139,7 @@
         android:background="@color/white"
         />
 
+    <include layout="@layout/incoming_voice_call"/>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

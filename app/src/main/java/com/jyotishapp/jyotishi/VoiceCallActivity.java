@@ -260,6 +260,8 @@ public class VoiceCallActivity extends AppCompatActivity {
         leaveChannel();
         RtcEngine.destroy();
         rtcEngine = null;
+        mRef.child("Calling").setValue(false);
+        mRef.child("Engaged").setValue(false);
     }
 
     @Override

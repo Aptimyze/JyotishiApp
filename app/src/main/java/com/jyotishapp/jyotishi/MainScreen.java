@@ -52,7 +52,7 @@ import java.util.Locale;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
-public class MainScreen extends AppCompatActivity {
+public class MainScreen extends BaseClass {
 
     private static final int PERMISSION_REQ_ID = 22;
     BoomMenuButton bmb;
@@ -108,6 +108,7 @@ public class MainScreen extends AppCompatActivity {
 
         setContentView(R.layout.activity_main_screen);
         getSupportActionBar().hide();
+        onIncomingCall();
 
         bmb = (BoomMenuButton) findViewById(R.id.mainPic);
         fabsd = (FabSpeedDial) findViewById(R.id.tool);
