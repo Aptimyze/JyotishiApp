@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:visibility="gone"
     android:elevation="6dp"
-    android:id="@+id/incoming_call">
+    android:id="@+id/incoming_call"
+    android:animateLayoutChanges="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,9 +79,11 @@
                         android:layout_width="150dp"
                         android:layout_height="60dp">
                         <LinearLayout
+                            android:id="@+id/decline_button"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
+                            android:foreground="?attr/selectableItemBackground"
                             android:background="@color/red">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -102,10 +105,14 @@
                         android:layout_width="150dp"
                         android:layout_height="60dp">
                         <LinearLayout
+                            android:id="@+id/accept_button"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:background="@color/green">
+                            android:background="@color/green"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

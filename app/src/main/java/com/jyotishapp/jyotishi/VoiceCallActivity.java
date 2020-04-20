@@ -103,6 +103,14 @@ public class VoiceCallActivity extends AppCompatActivity {
         holdConatiner = (LinearLayout) findViewById(R.id.hold_container);
         seconds =0;
 
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null){
+            if(bundle.getString("callReceived").equals("true")) {
+                mRef.child("Engaged").setValue(true);
+//                changeUiToCall();
+            }
+        }
+
         mute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

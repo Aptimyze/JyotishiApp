@@ -1,7 +1,9 @@
 package com.jyotishapp.jyotishi;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,13 +20,17 @@ public class BaseClass extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference mRef;
     FirebaseAuth mAuth;
-    LinearLayout incomingCall;
+    LinearLayout incomingCall, accceptButton, declineButton;
 
     public void onIncomingCall(){
         incomingCall = (LinearLayout) findViewById(R.id.incoming_call);
+        accceptButton = (LinearLayout) findViewById(R.id.accept_button);
+        declineButton = (LinearLayout) findViewById(R.id.decline_button);
+
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("IncomingCall");
+
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -41,6 +47,26 @@ public class BaseClass extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        accceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mRef.setValue(false);
+                Intent intent = new Intent(getApplicationContext(), VoiceCallActivity.class);
+                intent.putExtra("callReceived", "true");
+                startActivity(intent);
+            }
+        });
+
+        declineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mRef.setValue(false);
+                incomingCall.setVisibility(View.GONE);
+                incomingCall.setClickable(true);
+                Toast.makeText(getApplicationContext(), "Call Declined", Toast.LENGTH_LONG).show();
             }
         });
     }
