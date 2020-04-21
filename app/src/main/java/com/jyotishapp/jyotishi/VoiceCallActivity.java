@@ -7,11 +7,14 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.animation.LayoutTransition;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.tts.Voice;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
@@ -75,7 +78,9 @@ public class VoiceCallActivity extends AppCompatActivity {
     };
 
     private void onRemoteUserLeft(int uid, int reason){
-        Toast.makeText(VoiceCallActivity.this, "The user has left.", Toast.LENGTH_LONG).show();
+        Toast.makeText(VoiceCallActivity.this, "Jyotish Ji has ended the call.", Toast.LENGTH_LONG).show();
+        onStop();
+        finish();
     }
 
     private void onRemoteUserMutedAudio(int uid, boolean muted){
@@ -92,6 +97,7 @@ public class VoiceCallActivity extends AppCompatActivity {
         mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid());
         mRef.child("Calling").setValue(true);
         mRef.child("Engaged").setValue(false);
+        mRef.child("InCallWith").setValue("Jyotish");
 
         timer = (TextView) findViewById(R.id.timer);
         mute = (ImageView) findViewById(R.id.mute);
@@ -103,6 +109,14 @@ public class VoiceCallActivity extends AppCompatActivity {
         holdConatiner = (LinearLayout) findViewById(R.id.hold_container);
         seconds =0;
 
+        //attempt to enable in call mode of speaker but not allowed above android L
+//        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+//        audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+//        audioManager.setSpeakerphoneOn(false);
+//        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+//        Toast.makeText(VoiceCallActivity.this, x+"", Toast.LENGTH_LONG).show();
+
+
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
             if(bundle.getString("callReceived").equals("true")) {
@@ -110,6 +124,20 @@ public class VoiceCallActivity extends AppCompatActivity {
 //                changeUiToCall();
             }
         }
+
+        database.getReference().child("Admin").child("InCallWith").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue().toString().equals(mAuth.getUid())){
+                    mRef.child("Engaged").setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         mute.setOnClickListener(new View.OnClickListener() {
             @Override
