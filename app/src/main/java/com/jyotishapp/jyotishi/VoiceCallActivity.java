@@ -40,16 +40,19 @@ import io.agora.rtc.RtcEngine;
 
 public class VoiceCallActivity extends AppCompatActivity {
 
-    boolean clickable = false;
+    boolean clickable = false, timeSet=false, activityFinished=false;
     boolean muteOn = false, speakerOn = false, holdOn = false;
     private TextView timer;
     private ImageView mute, speaker, hold;
     LinearLayout endCall, muteContainer, holdConatiner, speakerContainer;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-    private DatabaseReference mRef;
+    private DatabaseReference mRef, callAdd;
     private final static int PERMISSION_REQ_ID_RECORD_AUDIO = 22;
     private RtcEngine rtcEngine;
+    private String callType = "outgo";
+    private String pushKey = "";
+    final Handler timerHandler = new Handler();
     private final IRtcEngineEventHandler rtcEngineEventHandler = new IRtcEngineEventHandler() {
         @Override
         public void onUserOffline(final int uid, final int reason) {
@@ -119,11 +122,14 @@ public class VoiceCallActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
-            if(bundle.getString("callReceived").equals("true")) {
+            if(bundle.getString("incomingCall").equals("true")) {
+                callType = "incom";
                 mRef.child("Engaged").setValue(true);
 //                changeUiToCall();
             }
         }
+
+
 
         database.getReference().child("Admin").child("InCallWith").addValueEventListener(new ValueEventListener() {
             @Override
@@ -208,7 +214,8 @@ public class VoiceCallActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue().toString().equals(true+"")){
-                    changeUiToCall();
+                    if(!activityFinished)
+                        changeUiToCall();
                 }
             }
 
@@ -227,6 +234,11 @@ public class VoiceCallActivity extends AppCompatActivity {
         speaker.setColorFilter(Color.argb(255, 0, 0, 0));
         hold.setColorFilter(Color.argb(255, 0, 0, 0));
         timerStart();
+        VoiceCall voiceCall = new VoiceCall("Jyotish Id", "JyotishJi", "jyotish@gmail.com",
+                -System.currentTimeMillis()+"", callType, -1 );
+        pushKey = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("voiceCalls").push().getKey();
+        callAdd = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("voiceCalls").child(pushKey);
+        callAdd.setValue(voiceCall);
     }
 
     int seconds;
@@ -239,7 +251,6 @@ public class VoiceCallActivity extends AppCompatActivity {
         mute.setClickable(true);
         speaker.setClickable(true);
         hold.setClickable(true);
-        final Handler timerHandler = new Handler();
         timerHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -293,16 +304,37 @@ public class VoiceCallActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        activityFinished = true;
         leaveChannel();
         RtcEngine.destroy();
         rtcEngine = null;
+        setTime();
+        seconds =-1;
+        timerHandler.removeCallbacks(null);
         mRef.child("Calling").setValue(false);
         mRef.child("Engaged").setValue(false);
+        finish();
+    }
+
+    void setTime(){
+        try{
+            if(!timeSet) {
+                callAdd.child("duration").setValue(seconds);
+                timeSet = true;
+            }
+        } catch (Exception e){
+
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        onStop();
     }
 }

@@ -55,7 +55,7 @@ public class BaseClass extends AppCompatActivity {
             public void onClick(View view) {
                 mRef.setValue(false);
                 Intent intent = new Intent(getApplicationContext(), VoiceCallActivity.class);
-                intent.putExtra("callReceived", "true");
+                intent.putExtra("incomingCall", "true");
                 startActivity(intent);
             }
         });

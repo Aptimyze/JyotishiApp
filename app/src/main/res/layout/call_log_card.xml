@@ -3,8 +3,10 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="110dp"
     android:weightSum="10"
+    android:elevation="2dp"
     android:layout_marginHorizontal="10dp"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="5dp"
+    android:background="@color/less_white">
     
     <LinearLayout
         android:layout_width="0dp"
@@ -49,7 +51,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/call_made"
+                android:src="@drawable/call_received"
                 android:tint="@color/green"/>
             <TextView
                 android:id="@+id/duration"
@@ -59,7 +61,7 @@
                 android:textSize="15dp"
                 android:textStyle="normal"
                 android:typeface="monospace"
-                android:text="6:44 pm, 43s"/>
+                android:text="21/4, 6:44 pm, 43s"/>
 
         </LinearLayout>
         

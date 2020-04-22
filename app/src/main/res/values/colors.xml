@@ -27,4 +27,5 @@
     <color name="green">#04B431</color>
     <color name="light_black">#424242</color>
     <color name="light_green">#58FA58</color>
+    <color name="less_white">#FAFAFA</color>
 </resources>
