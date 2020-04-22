@@ -19,8 +19,11 @@
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VoiceCallActivity"></activity>
-        <activity android:name=".SplashScreen">
+        <activity android:name=".VoiceLogsActivity"
+            android:parentActivityName=".MainScreen"></activity>
+        <activity android:name=".VoiceCallActivity" />
+        <activity android:name=".SplashScreen"
+            android:parentActivityName=".MainScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,7 +64,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Jyotishi"
             android:launchMode="singleTop"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".PhoneLogin"
             android:launchMode="singleTop"

@@ -6,7 +6,8 @@
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainScreen"
-    android:id="@+id/drawerLayout">
+    android:id="@+id/drawerLayout"
+    android:animateLayoutChanges="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -125,6 +126,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:rippleColor="#D99B08" />
+
+        <include layout="@layout/incoming_voice_call"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout="@layout/view_loading"/>
@@ -138,6 +142,8 @@
         android:id="@+id/nView"
         android:background="@color/white"
         />
+
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
