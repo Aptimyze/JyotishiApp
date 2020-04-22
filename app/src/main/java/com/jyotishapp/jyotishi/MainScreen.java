@@ -138,8 +138,9 @@ public class MainScreen extends BaseClass {
                 int id = menuItem.getItemId();
                 switch (id){
                     case R.id.AudioCalls:
-                        Toast.makeText(MainScreen.this, "Voice Calls", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(MainScreen.this, "Voice Calls", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(Gravity.LEFT);
+                        startActivity(new Intent(MainScreen.this, VoiceLogsActivity.class));
                         break;
                     case R.id.VideoCalls:
                         Toast.makeText(MainScreen.this, "Video Calls", Toast.LENGTH_LONG).show();
@@ -161,7 +162,7 @@ public class MainScreen extends BaseClass {
                             return true;
 
                 }
-                return true;
+                return false;
             }
         });
 

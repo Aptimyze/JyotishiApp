@@ -60,5 +60,6 @@
     <string name="welcome">Welcome</string>
     <string name="buypremium">Buy Premium</string>
     <string name="blank"> </string>
+    <string name="voice_call_logs">Voice Calls Logs</string>
 </resources>
 

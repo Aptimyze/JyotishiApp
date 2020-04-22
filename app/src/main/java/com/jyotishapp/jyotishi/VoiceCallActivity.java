@@ -235,7 +235,7 @@ public class VoiceCallActivity extends AppCompatActivity {
         hold.setColorFilter(Color.argb(255, 0, 0, 0));
         timerStart();
         VoiceCall voiceCall = new VoiceCall("Jyotish Id", "JyotishJi", "jyotish@gmail.com",
-                -System.currentTimeMillis()+"", callType, -1 );
+                -System.currentTimeMillis(), callType, -1 );
         pushKey = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("voiceCalls").push().getKey();
         callAdd = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("voiceCalls").child(pushKey);
         callAdd.setValue(voiceCall);

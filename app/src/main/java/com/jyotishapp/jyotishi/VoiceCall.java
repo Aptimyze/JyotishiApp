@@ -6,7 +6,7 @@ public class VoiceCall {
     }
 
     VoiceCall(String contactUserId, String contactUserName,
-    String contactInfo, String timestamp, String type, long duration){
+    String contactInfo, long timestamp, String type, long duration){
         this.contactInfo = contactInfo;
         this.timestamp = timestamp;
         this.contactUserId = contactUserId;
@@ -15,7 +15,7 @@ public class VoiceCall {
         this.duration = duration;
     }
 
-    private String timestamp;
+    private long timestamp;
     private String contactUserId;
     private String contactUserName;
     private String contactInfo;
@@ -26,7 +26,7 @@ public class VoiceCall {
         return duration;
     }
 
-    public String getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
@@ -46,7 +46,7 @@ public class VoiceCall {
         return type;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 

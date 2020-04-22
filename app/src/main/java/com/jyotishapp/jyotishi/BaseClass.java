@@ -15,7 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class BaseClass extends AppCompatActivity {
+public abstract class BaseClass extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference mRef;
@@ -67,6 +67,12 @@ public class BaseClass extends AppCompatActivity {
                 incomingCall.setVisibility(View.GONE);
                 incomingCall.setClickable(true);
                 Toast.makeText(getApplicationContext(), "Call Declined", Toast.LENGTH_LONG).show();
+                VoiceCall voiceCall = new VoiceCall("Jyotish Id", "JyotishJi", "jyotish@gmail.com",
+                        -System.currentTimeMillis(), "missed", 0 );
+                String pushKey = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("voiceCalls").push().getKey();
+                database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("voiceCalls")
+                        .child(pushKey)
+                        .setValue(voiceCall);
             }
         });
     }
