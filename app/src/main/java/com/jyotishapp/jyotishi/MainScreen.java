@@ -155,7 +155,7 @@ public class MainScreen extends BaseClass {
                         drawerLayout.closeDrawer(Gravity.LEFT);
                         break;
                     case R.id.TermsAndConditions:
-                        Toast.makeText(MainScreen.this, "Terms & Conditions", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MainScreen.this, TnCActivity.class));
                         drawerLayout.closeDrawer(Gravity.LEFT);
                         break;
                         default:

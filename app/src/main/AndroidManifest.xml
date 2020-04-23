@@ -19,10 +19,17 @@
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VoiceLogsActivity"
+        <activity android:name=".PrivacyPolicyActivity"
             android:parentActivityName=".MainScreen"></activity>
+        <activity
+            android:name=".TnCActivity"
+            android:parentActivityName=".MainScreen" />
+        <activity
+            android:name=".VoiceLogsActivity"
+            android:parentActivityName=".MainScreen" />
         <activity android:name=".VoiceCallActivity" />
-        <activity android:name=".SplashScreen"
+        <activity
+            android:name=".SplashScreen"
             android:parentActivityName=".MainScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
