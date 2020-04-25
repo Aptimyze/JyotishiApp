@@ -61,6 +61,8 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:6.0.2'
     implementation 'io.agora.rtc:full-sdk:2.4.1'
     implementation 'com.onesignal:OneSignal:[3.11.2, 3.99.99]'
+    implementation 'br.com.simplepass:loading-button-android:2.2.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

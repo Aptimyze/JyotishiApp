@@ -147,11 +147,11 @@ public class MainScreen extends BaseClass {
                         drawerLayout.closeDrawer(Gravity.LEFT);
                         break;
                     case R.id.settings:
-                        Toast.makeText(MainScreen.this, "Settings", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MainScreen.this, SettingsActivity.class));
                         drawerLayout.closeDrawer(Gravity.LEFT);
                         break;
                     case R.id.BuyPremium:
-                        Toast.makeText(MainScreen.this, "Buy Premium", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MainScreen.this, BuyPremiumActivity.class));
                         drawerLayout.closeDrawer(Gravity.LEFT);
                         break;
                     case R.id.TermsAndConditions:
