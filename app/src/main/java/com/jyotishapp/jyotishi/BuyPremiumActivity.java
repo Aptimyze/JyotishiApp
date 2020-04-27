@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,8 +15,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.paytm.pgsdk.PaytmOrder;
+
+import java.io.IOException;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class BuyPremiumActivity extends AppCompatActivity {
 
@@ -23,6 +32,8 @@ public class BuyPremiumActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference mRef;
     private CircularProgressButton buyButton;
+    private PaytmOrder paytmOrder;
+    private PaymentHTTPRequestAsync paymentHTTPRequestAsync;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +46,7 @@ public class BuyPremiumActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Premium");
+//        paytmOrder = new PaytmOrder()
 
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +72,9 @@ public class BuyPremiumActivity extends AppCompatActivity {
             }
         });
 
-
+        paymentHTTPRequestAsync = new PaymentHTTPRequestAsync();
+        paymentHTTPRequestAsync.execute();
     }
+
+
 }

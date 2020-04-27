@@ -62,6 +62,8 @@ dependencies {
     implementation 'io.agora.rtc:full-sdk:2.4.1'
     implementation 'com.onesignal:OneSignal:[3.11.2, 3.99.99]'
     implementation 'br.com.simplepass:loading-button-android:2.2.0'
+    implementation 'com.paytm.appinvokesdk:appinvokesdk:1.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.5.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
