@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:name=".NotificationClass">
         <activity android:name=".BuyPremiumActivity"
             android:parentActivityName=".MainScreen"></activity>
         <activity

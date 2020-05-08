@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
 
 import java.util.Locale;
 
@@ -127,8 +128,21 @@ public class VoiceCallActivity extends AppCompatActivity {
                 mRef.child("Engaged").setValue(true);
 //                changeUiToCall();
             }
-        }
+            else{
+                FirebaseDatabase.getInstance().getReference().child("Admin").child("NotificationKey").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        new SendNotificationForCall("Incoming Voice Call",
+                                "You have an incoming voice call, click to answer", dataSnapshot.getValue().toString());
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
 
 
         database.getReference().child("Admin").child("InCallWith").addValueEventListener(new ValueEventListener() {
