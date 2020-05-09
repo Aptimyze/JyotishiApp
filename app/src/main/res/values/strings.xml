@@ -65,6 +65,10 @@
     <string name="time_left">\nYou have 10 minutes of free voice calling left.</string>
     <string name="price">Rs. 50</string>
     <string name="price_duration">for 3 months</string>
+    <string name="dialing">Jyotish Ji   <i>dialing</i></string>
+    <string name="talking">Jyotish Ji   <i>talking</i></string>
+    <string name="paused">Jyotish Ji   <i>paused</i></string>
+    <string name="left">Jyotish Ji   <i>left or is offline</i></string>
 
 
     <string name="tnc_body">Welcome to Jyotishi!

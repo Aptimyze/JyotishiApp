@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,7 +44,8 @@ public class VidCallActivity extends AppCompatActivity {
     private RtcEngine rtcEngine;
     private RelativeLayout mRemoteContainer;
     private FrameLayout mLocalContainer;
-    private ImageView mCallButt, mMuteButt, mSwitchCameraButt;
+    private LinearLayout mCallButt, mMuteButt, mSwitchCameraButt,callEnd;
+    private ImageView callButt, muteButt, switchCameraButt;
     private SurfaceView mLocalView, mRemoteView;
     private boolean CallEnd, mMuted;
     FirebaseAuth mAuth;
@@ -59,14 +62,25 @@ public class VidCallActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vid_call);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle(R.string.dialing);
+        getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.bar_bg_fit));
 
         //get References
         mRemoteContainer = (RelativeLayout) findViewById(R.id.remote_video_view_container);
         mLocalContainer = (FrameLayout) findViewById(R.id.local_video_view_container);
-        mCallButt = (ImageView) findViewById(R.id.btn_call);
-        mMuteButt = (ImageView) findViewById(R.id.btn_mute);
-        mSwitchCameraButt = (ImageView) findViewById(R.id.btn_switch_camera);
+        mCallButt = (LinearLayout) findViewById(R.id.btn_call);
+        mMuteButt = (LinearLayout) findViewById(R.id.btn_mute);
+        mSwitchCameraButt = (LinearLayout) findViewById(R.id.btn_switch_camera);
+        callButt = (ImageView) findViewById(R.id.call);
+        muteButt = (ImageView) findViewById(R.id.mute);
+        switchCameraButt = (ImageView) findViewById(R.id.switchcam);
+        callEnd = (LinearLayout) findViewById(R.id.end_call);
+        callEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onPause();
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Name")
@@ -231,6 +245,7 @@ public class VidCallActivity extends AppCompatActivity {
     }
 
     private void onRemoteUserLeft(){
+        getSupportActionBar().setTitle(R.string.left);
         removeRemoteVideo();
     }
 
@@ -257,6 +272,7 @@ public class VidCallActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Log.v("AAA", "First remote video decoded " + uid);
+                    getSupportActionBar().setTitle(R.string.talking);
                     setUpRemoteVideo(uid);
                 }
             });
@@ -268,6 +284,7 @@ public class VidCallActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Log.v("AAAA", "User offline " + uid);
+                    getSupportActionBar().setTitle(R.string.left);
                     onRemoteUserLeft();
                 }
             });
@@ -296,11 +313,11 @@ public class VidCallActivity extends AppCompatActivity {
         if(CallEnd){
             startCall();
             CallEnd = false;
-            mCallButt.setImageResource(R.drawable.stop_call);
+            callButt.setImageResource(R.drawable.hold_call_icon);
         } else{
             endCall();
             CallEnd = true;
-            mCallButt.setImageResource(R.drawable.resume_call);
+            callButt.setImageResource(R.drawable.resume_call);
         }
         showButtons(!CallEnd);
     }
@@ -337,6 +354,6 @@ public class VidCallActivity extends AppCompatActivity {
         mMuted = !mMuted;
         rtcEngine.muteLocalAudioStream(mMuted);
         int res= mMuted ? R.drawable.mic_on : R.drawable.mic_off;
-        mMuteButt.setImageResource(res);
+        muteButt.setImageResource(res);
     }
 }

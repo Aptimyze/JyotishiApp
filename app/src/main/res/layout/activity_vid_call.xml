@@ -31,8 +31,8 @@
 
     <FrameLayout
         android:id="@+id/local_video_view_container"
-        android:layout_width="150dp"
-        android:layout_height="250dp"
+        android:layout_width="140dp"
+        android:layout_height="230dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
@@ -51,22 +51,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        >
+        android:layout_marginBottom="5dp">
         <LinearLayout
             android:layout_width="0dp"
             android:orientation="vertical"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/btn_call"
-            android:layout_width="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:onClick="onCallClicked"
-            android:src="@drawable/resume_call"
-            android:scaleType="centerCrop"/>
+            <LinearLayout
+                android:onClick="onCallClicked"
+                android:id="@+id/btn_call"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:background="@drawable/yellow_round_bg">
+                <ImageView
+                    android:id="@+id/call"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:tint="@color/white"
+                    android:src="@drawable/hold_call_icon"/>
+            </LinearLayout>
         </LinearLayout>
 
     <LinearLayout
@@ -74,17 +82,23 @@
         android:orientation="vertical"
         android:layout_height="match_parent"
         android:layout_weight="1">
-        <ImageView
-            android:id="@+id/btn_switch_camera"
+        <LinearLayout
+            android:onClick="onLocalAudioMuteClicked"
+            android:id="@+id/btn_mute"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_toRightOf="@id/btn_call"
-            android:layout_toEndOf="@id/btn_call"
-            android:layout_centerVertical="true"
-            android:onClick="onSwitchCameraClicked"
-            android:src="@drawable/switch_camera"
-            android:scaleType="centerCrop"/>
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:background="@drawable/blue_round_bg">
+            <ImageView
+                android:id="@+id/mute"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:tint="@color/white"
+                android:src="@drawable/mute_audio_icon"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -92,18 +106,45 @@
         android:orientation="vertical"
         android:layout_height="match_parent"
         android:layout_weight="1">
-        <ImageView
-            android:id="@+id/btn_mute"
+        <LinearLayout
+            android:onClick="onSwitchCameraClicked"
+            android:id="@+id/btn_switch_camera"
             android:layout_width="50dp"
-            android:layout_gravity="center_horizontal"
             android:layout_height="50dp"
-            android:layout_toLeftOf="@id/btn_call"
-            android:layout_toStartOf="@id/btn_call"
-            android:layout_centerVertical="true"
-            android:onClick="onLocalAudioMuteClicked"
-            android:src="@drawable/mic_off"
-            android:scaleType="centerCrop"/>
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:background="@drawable/green_round_bg">
+            <ImageView
+                android:id="@+id/switchcam"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:tint="@color/white"
+                android:src="@drawable/switch_camera"/>
+        </LinearLayout>
     </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/end_call"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:background="@drawable/call_end_bg">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:tint="@color/white"
+                    android:src="@drawable/call_end"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

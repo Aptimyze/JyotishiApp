@@ -143,6 +143,20 @@ public class VoiceCallActivity extends AppCompatActivity {
                 });
             }
         }
+        else {
+            FirebaseDatabase.getInstance().getReference().child("Admin").child("NotificationKey").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    new SendNotificationForCall("Incoming Voice Call",
+                            "You have an incoming voice call, click to answer", dataSnapshot.getValue().toString());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
 
 
         database.getReference().child("Admin").child("InCallWith").addValueEventListener(new ValueEventListener() {
