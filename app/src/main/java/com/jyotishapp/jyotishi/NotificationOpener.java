@@ -42,7 +42,7 @@ public class NotificationOpener implements OneSignal.NotificationOpenedHandler {
         if(x.contains("Voice")){
             Intent intent = new Intent(context, VoiceCallActivity.class).
                     setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivities(new Intent[]{new Intent(context, MainScreen.class), intent});
+            context.startActivities(new Intent[]{new Intent(context, MainScreen.class)});
             return;
         }
 
@@ -63,6 +63,6 @@ public class NotificationOpener implements OneSignal.NotificationOpenedHandler {
 
         Intent intent = new Intent(context, VidCallActivity.class).
                 setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("cid", uid);
-        context.startActivities(new Intent[]{new Intent(context, MainScreen.class), intent});
+        context.startActivities(new Intent[]{new Intent(context, MainScreen.class)});
     }
 }

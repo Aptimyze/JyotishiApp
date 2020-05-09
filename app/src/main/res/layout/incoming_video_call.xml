@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:visibility="gone"
     android:elevation="6dp"
-    android:id="@+id/incoming_call"
+    android:id="@+id/incoming_video_call"
     android:animateLayoutChanges="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="13"
-        android:background="@color/gradientEndYellow"
+        android:background="@color/blue_tint"
         android:orientation="vertical"
         android:elevation="100dp">
         <LinearLayout
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="INCOMING VOICE CALL.."
+                android:text="INCOMING VIDEO CALL.."
                 android:typeface="monospace"
                 android:textSize="20dp"/>
 
@@ -79,7 +79,7 @@
                         android:layout_width="150dp"
                         android:layout_height="60dp">
                         <LinearLayout
-                            android:id="@+id/decline_button"
+                            android:id="@+id/decline_video_button"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -105,7 +105,7 @@
                         android:layout_width="150dp"
                         android:layout_height="60dp">
                         <LinearLayout
-                            android:id="@+id/accept_button"
+                            android:id="@+id/accept_video_button"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"

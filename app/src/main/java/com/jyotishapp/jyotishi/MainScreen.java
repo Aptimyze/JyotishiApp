@@ -109,6 +109,7 @@ public class MainScreen extends BaseClass {
         setContentView(R.layout.activity_main_screen);
         getSupportActionBar().hide();
         onIncomingCall();
+        onIncomingVideoCall();
 
         bmb = (BoomMenuButton) findViewById(R.id.mainPic);
         fabsd = (FabSpeedDial) findViewById(R.id.tool);
