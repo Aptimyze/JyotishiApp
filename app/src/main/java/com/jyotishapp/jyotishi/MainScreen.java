@@ -105,6 +105,13 @@ public class MainScreen extends BaseClass {
         }
         mRef.child("UserId").setValue(mAuth.getCurrentUser().getUid());
         mRef.child("Last Active").setValue(sdf.format(date));
+        mRef.child("Calling").setValue(false);
+        mRef.child("Engaged").setValue(false);
+        mRef.child("InCallWith").setValue("");
+        mRef.child("IncomingCall").setValue(false);
+        mRef.child("IncomingVideoCall").setValue(false);
+        mRef.child("Premium").setValue(false);
+        //TODO: onboarding new user default values
 
         setContentView(R.layout.activity_main_screen);
         getSupportActionBar().hide();
