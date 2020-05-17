@@ -1,6 +1,10 @@
 package com.jyotishapp.jyotishi;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -15,13 +19,54 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public abstract class BaseClass extends AppCompatActivity {
+public abstract class BaseClass extends AppCompatActivity implements ConnectivityChangedListener{
 
     FirebaseDatabase database;
     DatabaseReference mRef;
     FirebaseAuth mAuth;
     LinearLayout incomingCall, accceptButton, declineButton,
-        incomingVideoCall, accceptVideoButton, declineVideoButton;
+        incomingVideoCall, accceptVideoButton, declineVideoButton,
+            tryAgain;
+    View noInternet;
+
+    public void initializeViews(){
+        noInternet = (View) findViewById(R.id.no_internet_view);
+        tryAgain = (LinearLayout) findViewById(R.id.try_again);
+
+        internetListener();
+
+        tryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ConnectivityManager cm = (ConnectivityManager) getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                onNetworkChangedListener(isConnected);
+            }
+        });
+
+        onIncomingCall();
+        onIncomingVideoCall();
+    }
+
+    void internetListener(){
+//        ConnectivityManager cm = (ConnectivityManager) getApplicationContext()
+//                .getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        registerReceiver(new ConnectivityReceiver(),
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        ConnectivityReceiver.connectivityChangedListener = this;
+    }
+
+    @Override
+    public void onNetworkChangedListener(boolean isConnected) {
+        if(!isConnected)
+            noInternet.setVisibility(View.VISIBLE);
+        else
+            noInternet.setVisibility(View.GONE);
+    }
 
     public void onIncomingCall(){
         incomingCall = (LinearLayout) findViewById(R.id.incoming_call);

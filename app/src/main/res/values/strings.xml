@@ -70,6 +70,7 @@
     <string name="paused">Jyotish Ji   <i>paused</i></string>
     <string name="left">Jyotish Ji   <i>left or is offline</i></string>
     <string name="video_call_logs">Video Call Logs</string>
+    <string name="no_internet">Slow or no internet connection.\nPlease check your internet settings.</string>
 
 
     <string name="tnc_body">Welcome to Jyotishi!
