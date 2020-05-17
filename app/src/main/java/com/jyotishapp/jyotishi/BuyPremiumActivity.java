@@ -26,7 +26,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class BuyPremiumActivity extends AppCompatActivity {
+public class BuyPremiumActivity extends BaseClass {
 
     FirebaseAuth mAuth;
     FirebaseDatabase database;
@@ -47,6 +47,8 @@ public class BuyPremiumActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Premium");
 //        paytmOrder = new PaytmOrder()
+
+        initializeViews();
 
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -35,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends BaseClass {
     LinearLayout help_butt, back_button;
     FirebaseDatabase database;
     DatabaseReference mRef;
@@ -81,6 +81,7 @@ public class ChatActivity extends AppCompatActivity {
         mRef = database.getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
         getMessageNo();
+        initializeViews();
 
         Query query = FirebaseDatabase.getInstance()
                 .getReference()

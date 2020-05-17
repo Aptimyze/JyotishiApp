@@ -97,4 +97,10 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <include layout="@layout/incoming_voice_call"/>
+
+    <include layout="@layout/incoming_video_call"/>
+
+    <include layout="@layout/no_internet_view"/>
+
 </LinearLayout>

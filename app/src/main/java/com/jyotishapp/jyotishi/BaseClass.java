@@ -57,6 +57,11 @@ public abstract class BaseClass extends AppCompatActivity implements Connectivit
 //        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         registerReceiver(new ConnectivityReceiver(),
                 new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         ConnectivityReceiver.connectivityChangedListener = this;
     }
 
