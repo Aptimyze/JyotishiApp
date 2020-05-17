@@ -110,7 +110,7 @@ public abstract class BaseClass extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mRef.child("IncomingVideoCall").setValue(false);
-                Intent intent = new Intent(getApplicationContext(), VoiceCallActivity.class);
+                Intent intent = new Intent(getApplicationContext(), VidCallActivity.class);
                 intent.putExtra("incomingVideoCall", "true");
                 startActivity(intent);
             }

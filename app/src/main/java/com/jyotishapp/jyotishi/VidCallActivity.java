@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.onesignal.OneSignal;
@@ -49,7 +50,9 @@ public class VidCallActivity extends AppCompatActivity {
     private SurfaceView mLocalView, mRemoteView;
     private boolean CallEnd, mMuted;
     FirebaseAuth mAuth;
-    String name = "";
+    FirebaseDatabase database;
+    DatabaseReference mRef;
+    String name = "", callType="outgo";
     int f=0;
 
     private static final String[] REQUESTED_PERMISSIONS = {
@@ -82,6 +85,8 @@ public class VidCallActivity extends AppCompatActivity {
             }
         });
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        mRef = database.getReference().child("Users");
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("Name")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -95,6 +100,12 @@ public class VidCallActivity extends AppCompatActivity {
 
                     }
                 });
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null){
+            if(bundle.getString("incomingVideoCall").equals("true"))
+                callType = "incom";
+        }
 
         FirebaseDatabase.getInstance().getReference().child("CurrentVidCall").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -272,6 +283,14 @@ public class VidCallActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Log.v("AAA", "First remote video decoded " + uid);
+                    VideoCall videoCall = new VideoCall("Jyotish Id",
+                            "JyotishJi", "jyotish@gmail.com",
+                            -System.currentTimeMillis(), callType);
+                    String pushKey = database.getReference().child("Users")
+                            .child(mAuth.getCurrentUser().getUid()).child("videoCalls").push().getKey();
+                    database.getReference().child("Users").
+                            child(mAuth.getCurrentUser().getUid()).
+                            child("videoCalls").child(pushKey).setValue(videoCall);
                     getSupportActionBar().setTitle(R.string.talking);
                     setUpRemoteVideo(uid);
                 }

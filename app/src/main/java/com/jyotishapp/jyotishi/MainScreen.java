@@ -144,8 +144,9 @@ public class MainScreen extends BaseClass {
                         startActivity(new Intent(MainScreen.this, VoiceLogsActivity.class));
                         break;
                     case R.id.VideoCalls:
-                        Toast.makeText(MainScreen.this, "Video Calls", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(MainScreen.this, "Video Calls", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(Gravity.LEFT);
+                        startActivity(new Intent(MainScreen.this, VideoLogsActivity.class));
                         break;
                     case R.id.settings:
                         startActivity(new Intent(MainScreen.this, SettingsActivity.class));
