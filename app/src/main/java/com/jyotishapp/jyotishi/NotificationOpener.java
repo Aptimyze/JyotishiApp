@@ -17,6 +17,9 @@ public class NotificationOpener implements OneSignal.NotificationOpenedHandler {
         this.context = context;
         this.uid = uid;
     }
+    NotificationOpener(Context context){
+        this.context = context;
+    }
     @Override
     public void notificationOpened(OSNotificationOpenResult result) {
         OSNotificationAction.ActionType actionType = result.action.type;
@@ -40,9 +43,9 @@ public class NotificationOpener implements OneSignal.NotificationOpenedHandler {
         }
 
         if(x.contains("Voice")){
-            Intent intent = new Intent(context, VoiceCallActivity.class).
+            Intent intent = new Intent(context, MainScreen.class).
                     setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivities(new Intent[]{new Intent(context, MainScreen.class)});
+            context.startActivities(new Intent[]{intent});
             return;
         }
 
@@ -61,8 +64,9 @@ public class NotificationOpener implements OneSignal.NotificationOpenedHandler {
         if(actionType == OSNotificationAction.ActionType.ActionTaken)
             Log.v("OneSignalExample", "Button pressed with id: " + result.action.actionID);
 
-        Intent intent = new Intent(context, VidCallActivity.class).
-                setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("cid", uid);
-        context.startActivities(new Intent[]{new Intent(context, MainScreen.class)});
+        Intent intent = new Intent(context, MainScreen.class).
+                setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivities(new Intent[]{intent});
+        return;
     }
 }
