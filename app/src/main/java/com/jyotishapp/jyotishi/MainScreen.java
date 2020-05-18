@@ -334,6 +334,7 @@ public class MainScreen extends BaseClass {
     public void logout() {
         OneSignal.setSubscription(false);
         FirebaseAuth.getInstance().signOut();
+        mAuth.signOut();
 
 
 //        try {

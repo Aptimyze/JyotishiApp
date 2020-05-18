@@ -229,10 +229,10 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
                             });
-                            startActivity(new Intent(MainActivity.this, MainScreen.class));
-
-
-                            startActivity(new Intent(MainActivity.this, MainScreen.class));
+//                            startActivity(new Intent(MainActivity.this, MainScreen.class));
+//
+//
+//                            startActivity(new Intent(MainActivity.this, MainScreen.class));
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                             finish();
                         } else {
