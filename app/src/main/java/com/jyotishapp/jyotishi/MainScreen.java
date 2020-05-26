@@ -105,10 +105,17 @@ public class MainScreen extends BaseClass {
         }
         mRef.child("UserId").setValue(mAuth.getCurrentUser().getUid());
         mRef.child("Last Active").setValue(sdf.format(date));
+        mRef.child("Calling").setValue(false);
+        mRef.child("Engaged").setValue(false);
+        mRef.child("InCallWith").setValue("");
+        mRef.child("IncomingCall").setValue(false);
+        mRef.child("IncomingVideoCall").setValue(false);
+        mRef.child("Premium").setValue(false);
+        //TODO: onboarding new user default values
 
         setContentView(R.layout.activity_main_screen);
         getSupportActionBar().hide();
-        onIncomingCall();
+        initializeViews();
 
         bmb = (BoomMenuButton) findViewById(R.id.mainPic);
         fabsd = (FabSpeedDial) findViewById(R.id.tool);
@@ -143,19 +150,20 @@ public class MainScreen extends BaseClass {
                         startActivity(new Intent(MainScreen.this, VoiceLogsActivity.class));
                         break;
                     case R.id.VideoCalls:
-                        Toast.makeText(MainScreen.this, "Video Calls", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(MainScreen.this, "Video Calls", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(Gravity.LEFT);
+                        startActivity(new Intent(MainScreen.this, VideoLogsActivity.class));
                         break;
                     case R.id.settings:
-                        Toast.makeText(MainScreen.this, "Settings", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MainScreen.this, SettingsActivity.class));
                         drawerLayout.closeDrawer(Gravity.LEFT);
                         break;
                     case R.id.BuyPremium:
-                        Toast.makeText(MainScreen.this, "Buy Premium", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MainScreen.this, BuyPremiumActivity.class));
                         drawerLayout.closeDrawer(Gravity.LEFT);
                         break;
                     case R.id.TermsAndConditions:
-                        Toast.makeText(MainScreen.this, "Terms & Conditions", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MainScreen.this, TnCActivity.class));
                         drawerLayout.closeDrawer(Gravity.LEFT);
                         break;
                         default:
@@ -326,6 +334,7 @@ public class MainScreen extends BaseClass {
     public void logout() {
         OneSignal.setSubscription(false);
         FirebaseAuth.getInstance().signOut();
+        mAuth.signOut();
 
 
 //        try {

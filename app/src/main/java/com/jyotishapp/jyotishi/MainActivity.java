@@ -13,6 +13,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -39,6 +41,8 @@ import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Util;
 
+import org.w3c.dom.Text;
+
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private int RC_SIGNIN = 9001;
     FirebaseDatabase database;
     DatabaseReference mRef;
+    TextView tnc, pp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,22 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        tnc = (TextView) findViewById(R.id.tnc);
+        tnc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, TnCActivity.class));
+            }
+        });
+
+        pp = (TextView) findViewById(R.id.pp);
+        pp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
+            }
+        });
 
 
         database = FirebaseDatabase.getInstance();
@@ -208,10 +229,10 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
                             });
-                            startActivity(new Intent(MainActivity.this, MainScreen.class));
-
-
-                            startActivity(new Intent(MainActivity.this, MainScreen.class));
+//                            startActivity(new Intent(MainActivity.this, MainScreen.class));
+//
+//
+//                            startActivity(new Intent(MainActivity.this, MainScreen.class));
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                             finish();
                         } else {

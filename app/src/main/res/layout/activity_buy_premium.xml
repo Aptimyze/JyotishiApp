@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="10"
+    tools:context=".BuyPremiumActivity"
+    android:gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_weight="6.5"
+        android:background="@drawable/premium_card_bg">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:background="@color/white_yellow">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6.5"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/yellow_gradient">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GET FULL ACCESS"
+                    android:textSize="22dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:typeface="monospace"/>
+                <ImageView
+                    android:layout_margin="10dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/key"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/premium_benefits"
+                    android:textSize="11dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:typeface="monospace"/>
+                <TextView
+                    android:textAlignment="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time_left"
+                    android:textSize="13dp"
+                    android:textColor="@color/white"
+                    android:typeface="sans"/>
+
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.5"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:textSize="27dp"
+                android:textColor="@color/light_black"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price_duration"
+                android:textSize="17dp"
+                android:textColor="@color/light_black"
+                android:typeface="monospace"/>
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/buy_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Buy Premium"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="10dp"
+                />
+
+
+        </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <include layout="@layout/incoming_voice_call"/>
+
+    <include layout="@layout/incoming_video_call"/>
+
+    <include layout="@layout/no_internet_view"/>
+
+</LinearLayout>

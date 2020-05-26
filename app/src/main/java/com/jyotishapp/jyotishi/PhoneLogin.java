@@ -189,7 +189,7 @@ public class PhoneLogin extends AppCompatActivity {
 
                                 }
                             });
-                            startActivity(new Intent(PhoneLogin.this, MainScreen.class));
+//                            startActivity(new Intent(PhoneLogin.this, MainScreen.class));
 
                         } else {
                             Toast.makeText(PhoneLogin.this, getString(R.string.enter_correct_otp), Toast.LENGTH_SHORT).show();
