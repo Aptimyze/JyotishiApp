@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ज्योतिषी</string>
+    <string name="Appointment"></string>
+    <string name="appointment_date_time"></string>
+    <string name="Select_time"></string>
+    <string name="appointment_text"></string>
     <string name="texty">Butterfly doesn\'t fly</string>
     <string name="mail">" मेल के साथ जारी रखें"</string>
     <string name="phone">फ़ोन के साथ जारी रखें</string>

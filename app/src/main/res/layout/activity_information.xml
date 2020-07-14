@@ -9,12 +9,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userNameL"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="60dp"
         android:hint="@string/name_enter">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/userName"
             android:layout_width="match_parent"
@@ -27,7 +27,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userAgeL"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
@@ -52,15 +51,16 @@
         android:layout_marginTop="40dp"/>
 
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/proceed"
-        style="@style/Theme.MaterialComponents.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="34dp"
         android:onClick="proceedClicked"
         android:clickable="true"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
         android:padding="15dp"
         android:text="@string/proceed"
         app:cornerRadius="10dp"

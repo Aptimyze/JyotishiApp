@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -29,7 +30,7 @@ public class InformationActivity extends AppCompatActivity {
     DatabaseReference mRef;
     EditText name, age;
     FirebaseAuth mAuth;
-    MaterialButton proceed;
+    Button proceed;
     List<String> langList;
     ArrayAdapter<String> spinnerAdapter;
     Spinner spinner;
@@ -44,7 +45,7 @@ public class InformationActivity extends AppCompatActivity {
         //references
         name = (EditText) findViewById(R.id.userName);
         age = (EditText) findViewById(R.id.userAge);
-        proceed = (MaterialButton) findViewById(R.id.proceed);
+        proceed = (Button) findViewById(R.id.proceed);
         spinner = (Spinner) findViewById(R.id.spinnerLang);
 
         Bundle extras = getIntent().getExtras();
@@ -102,6 +103,8 @@ public class InformationActivity extends AppCompatActivity {
             mRef.child("commLang").setValue(language);
             mRef.child("Chat").child("TotalMessages").setValue("0");
             mRef.child("timestamp").setValue(0);
+            mRef.child("Premium").setValue(false);
+
             startActivity(new Intent(InformationActivity.this, MainScreen.class));
         }
         else {

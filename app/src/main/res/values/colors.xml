@@ -30,4 +30,8 @@
     <color name="less_white">#FAFAFA</color>
     <color name="blue_tint">#0080FF</color>
     <color name="white_yellow">#F5ECCE</color>
+    <color name="ColorLightYellow">#FDEDB9</color>
+    <color name="ColorYellow">#FA9107</color>
+    <color name="colorGrey">#B9B9B9</color>
+    <color name="unknownYellow">#FFB504</color>
 </resources>

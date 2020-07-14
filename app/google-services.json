@@ -8,12 +8,57 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:69525632215:android:1ed27a3f87fb36d2fd6c92",
+        "android_client_info": {
+          "package_name": "com.jyotishapp.jyotishadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "69525632215-1riviattj4eepaa9m4tlja9ihecitld2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jyotishapp.jyotishadmin",
+            "certificate_hash": "0447bc7a975bdf9937d9f15a20f4f66e1e8f2094"
+          }
+        },
+        {
+          "client_id": "69525632215-182s7a2e18dvi6rqmpnveci143t3olv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeQhiTOBIEmXfu3XDcrWgd7GnX-3THiW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "69525632215-182s7a2e18dvi6rqmpnveci143t3olv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:69525632215:android:7cc6a99ef1eb7b09fd6c92",
         "android_client_info": {
           "package_name": "com.jyotishapp.jyotishi"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "69525632215-pn4dask8cndl8nsjts8f6o5g8gut2j6i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jyotishapp.jyotishi",
+            "certificate_hash": "e379600d4fc07e0946de5919dcc74e002e56d52e"
+          }
+        },
         {
           "client_id": "69525632215-h0tjl1fj33ore35gi1g6chf01tmrp8o6.apps.googleusercontent.com",
           "client_type": 1,

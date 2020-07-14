@@ -246,14 +246,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/EditProfile"
-                style="@style/Theme.MaterialComponents.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:onClick="editProfileClicked"
                 android:clickable="true"
+                android:background="@drawable/rounded_button"
                 android:padding="15dp"
                 android:textColor="@color/white"
                 android:text="@string/edit_profile"
