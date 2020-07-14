@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="#FE9A2E"
     android:gravity="center" android:id="@+id/no_internet_view"
-    android:clickable="true" android:visibility="gone">
+    android:clickable="true" android:visibility="invisible">
 
     <ImageView
         android:layout_width="150dp"

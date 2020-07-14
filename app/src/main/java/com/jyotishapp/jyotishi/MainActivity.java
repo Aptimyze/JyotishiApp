@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addBuilder() {
         HamButton.Builder builder = new HamButton.Builder()
-                .normalImageRes(R.drawable.mail)
+                .normalImageRes(R.drawable.ic_mail)
                 .normalTextRes(R.string.mail)
                 .typeface(Typeface.DEFAULT_BOLD)
                 .normalColorRes(R.color.button0)
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .imagePadding(new Rect(10, 10, 10, 1));
         HamButton.Builder builder1 = new HamButton.Builder()
-                .normalImageRes(R.drawable.phone)
+                .normalImageRes(R.drawable.ic_phone)
                 .normalTextRes(R.string.phone)
                 .normalColorRes(R.color.button1)
                 .highlightedColorRes(R.color.colorAccent)
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 .containsSubText(false)
                 .imagePadding(new Rect(10, 10, 10, 10));
         HamButton.Builder builder2 = new HamButton.Builder()
-                .normalImageRes(R.drawable.baseline_exit_to_app_white_18dp)
+                .normalImageRes(R.drawable.ic_exit)
                 .normalTextRes(R.string.exit)
                 .typeface(Typeface.DEFAULT_BOLD)
                 .normalColorRes(R.color.button2)
@@ -199,6 +199,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, getString(R.string.signed_in_as) + account.getDisplayName(), Toast.LENGTH_SHORT).show();
             } catch (ApiException e) {
                 Toast.makeText(MainActivity.this, getString(R.string.couldnt_sign_in), Toast.LENGTH_SHORT).show();
+                String error = e.getMessage();
+                if(error!=null)
+                Log.d("AAA",error);
             }
         }
     }

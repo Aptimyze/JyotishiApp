@@ -7,9 +7,8 @@
     android:orientation="vertical"
     tools:context=".LanguageActivity">
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/english"
-        style="@style/Theme.MaterialComponents.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="englishButt"
@@ -19,18 +18,21 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="150dp"
         android:text="English"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button"
         app:cornerRadius="10dp"
 
         app:rippleColor="#D99B08" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/hindi"
-        style="@style/Theme.MaterialComponents.Light"
+        android:background="@drawable/rounded_button"
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_marginHorizontal="60dp"
         android:layout_height="wrap_content"
         android:onClick="hindiButt"
+        android:textColor="@color/white"
         android:padding="15dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="150dp"

@@ -21,8 +21,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".VideoLogsActivity"
-            android:parentActivityName=".MainScreen"></activity>
+        <activity android:name=".AppointHostActivity"></activity>
+        <activity
+            android:name=".VideoLogsActivity"
+            android:parentActivityName=".MainScreen" />
         <activity
             android:name=".BuyPremiumActivity"
             android:parentActivityName=".MainScreen" />
@@ -90,10 +92,12 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop" />
-        <receiver android:name=".ConnectivityReceiver"
+
+        <receiver
+            android:name=".ConnectivityReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
     </application>

@@ -45,9 +45,6 @@ public abstract class BaseClass extends AppCompatActivity implements Connectivit
                 onNetworkChangedListener(isConnected);
             }
         });
-
-        onIncomingCall();
-        onIncomingVideoCall();
     }
 
     void internetListener(){

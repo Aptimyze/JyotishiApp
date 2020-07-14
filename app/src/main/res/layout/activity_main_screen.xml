@@ -93,41 +93,62 @@
             app:miniFabDrawableTint="@color/colorAccent"
             app:miniFabTitleTextColor="@color/black_overlay" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/viewJyotishProfiles"
-            style="@style/Theme.MaterialComponents.Light"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="124dp"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="38dp"
-            android:layout_marginEnd="125dp"
+            android:layout_marginEnd="70dp"
             android:onClick="viewJyotishProfilesClicked"
-            android:padding="15dp"
             android:text="@string/jyotish_profiles"
+            android:background="@drawable/rounded_button"
             app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageBorder"
-            app:rippleColor="#D99B08" />
+            android:textAllCaps="false"
+        />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/exploreOptions"
-            style="@style/Theme.MaterialComponents.Light"
-            android:layout_width="wrap_content"
+            android:background="@drawable/rounded_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="140dp"
-            android:layout_marginEnd="141dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
             android:layout_marginBottom="21dp"
             android:onClick="exploreOptionsClicked"
-            android:padding="15dp"
+            android:textColor="@android:color/white"
             android:text="@string/explore_options"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toTopOf="@+id/imageBorder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:rippleColor="#D99B08" />
+            android:textAllCaps="false"
+            />
 
-        <include layout="@layout/incoming_voice_call"/>
+        <Button
+            android:id="@+id/appointments"
+            android:background="@drawable/rounded_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:onClick="appointmentsClicked"
+            android:textColor="@android:color/white"
+            android:text="@string/Appointments"
+            app:cornerRadius="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/viewJyotishProfiles"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textAllCaps="false"
+            />
+
+        <include layout="@layout/incoming_voice_call"
+            />
 
         <include layout="@layout/incoming_video_call"/>
 

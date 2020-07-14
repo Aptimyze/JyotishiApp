@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/appointHostFragment">
+
+    <fragment
+        android:id="@+id/appointHostFragment"
+        android:name="com.jyotishapp.jyotishi.AppointHostFragment"
+        android:label="fragment_appoint_host"
+        tools:layout="@layout/fragment_appoint_host" >
+        <action
+            android:id="@+id/action_appointHostFragment_to_myAppointFragment"
+            app:destination="@id/myAppointFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
+        <action
+            android:id="@+id/action_appointHostFragment_to_appointSelectFragment2"
+            app:destination="@id/appointSelectFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/myAppointFragment"
+        android:name="com.jyotishapp.jyotishi.MyAppointFragment"
+        android:label="fragment_my_appoint"
+        tools:layout="@layout/fragment_my_appoint" >
+        <action
+            android:id="@+id/action_myAppointFragment_to_appointCancelFragment"
+            app:destination="@id/appointCancelFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim"
+            app:popUpTo="@id/appointHostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/appointSelectFragment"
+        android:name="com.jyotishapp.jyotishi.AppointSelectFragment"
+        android:label="AppointSelectFragment"
+        tools:layout="@layout/fragment_appoint_select">
+        <action
+            android:id="@+id/action_appointSelectFragment_to_appointConfirmFragment"
+            app:destination="@id/appointConfirmFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim"
+            app:popUpTo="@id/appointHostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/appointConfirmFragment"
+        android:name="com.jyotishapp.jyotishi.AppointConfirmFragment"
+        android:label="AppointConfirmFragment"
+        tools:layout="@layout/fragment_appoint_confirm"/>
+    <fragment
+        android:id="@+id/appointCancelFragment"
+        android:name="com.jyotishapp.jyotishi.AppointCancelFragment"
+        android:label="fragment_appoint_cancel"
+        tools:layout="@layout/fragment_appoint_cancel" >
+        <argument
+            android:name="Appoint"
+            app:argType="com.jyotishapp.jyotishi.Models.DateTimeWrapper" />
+    </fragment>
+</navigation>

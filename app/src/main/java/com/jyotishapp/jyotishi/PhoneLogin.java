@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 public class PhoneLogin extends AppCompatActivity {
 
     CountryCodePicker ccp;
-    MaterialButton requestOtp;
+    Button requestOtp;
     EditText number;
     OtpEditText otp;
     TextView resendOtp, enterOtp, didntGetOtp;
@@ -62,7 +62,7 @@ public class PhoneLogin extends AppCompatActivity {
 
         //references
         ccp = (CountryCodePicker) findViewById(R.id.countryCodePicker);
-        requestOtp = (MaterialButton) findViewById(R.id.reqestotp);
+        requestOtp = (Button) findViewById(R.id.reqestotp);
         number = (EditText) findViewById(R.id.phoneNumber);
         otp = (OtpEditText) findViewById(R.id.otp);
         resendOtp = (TextView) findViewById(R.id.resendOtpLink);

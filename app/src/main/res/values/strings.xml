@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Jyotishi</string>
+    <string name="Appointment">Take an appointment</string>
+    <string name="Select_time">Select time for appointment</string>
+    <string name="appointment_date_time">Select appointment date and time</string>
+    <string name="appointment_text">Take appointment</string>
+    <string name="Appointments">Appointments</string>
+    <string name="confirm_appointment">Confirm My Appointment</string>
     <string name="texty">Butterfly doesn\'t fly</string>
     <string name="mail">Continue with Mail</string>
     <string name="phone">Continue with Phone</string>
@@ -59,6 +65,7 @@
     <string name="settings">Settings</string>
     <string name="welcome">Welcome</string>
     <string name="buypremium">Buy Premium</string>
+    <string name="appointments">Appointments</string>
     <string name="blank"> </string>
     <string name="voice_call_logs">Voice Calls Logs</string>
     <string name="premium_benefits">\u2022 Unlimited Video Calling \n\u2022 Unlimited Voice Calling\n\u2022 Choose your own Jyotish \n\u2022 Get priority support</string>
@@ -217,5 +224,7 @@ As long as the website and the information and services on the website are provi
 
 <p>our website does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
 </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
 

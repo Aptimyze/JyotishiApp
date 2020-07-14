@@ -32,7 +32,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/firstNameLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
@@ -44,12 +43,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName|textCapWords" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/reqestotp"
-        style="@style/Theme.MaterialComponents.Light"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
