@@ -49,6 +49,8 @@ public class BuyPremiumActivity extends BaseClass {
 //        paytmOrder = new PaytmOrder()
 
         initializeViews();
+        onIncomingCall();
+        onIncomingVideoCall();
 
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override

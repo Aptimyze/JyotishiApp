@@ -26,5 +26,14 @@
             android:icon="@drawable/ic_tnc" android:title="@string/tnc"/>
     </group>
 
+    <group android:id="@+id/g3" android:checkableBehavior="single">
+      <item android:id="@+id/feedback"
+          android:title="@string/feedback"
+          android:icon="@drawable/ic_feedback"/>
+
+        <item android:id="@+id/contactus"
+            android:title="@string/contact_us"
+            android:icon="@drawable/ic_contact_us"/>
+    </group>
 
 </menu>

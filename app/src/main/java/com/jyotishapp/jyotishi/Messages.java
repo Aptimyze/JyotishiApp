@@ -5,6 +5,10 @@ public class Messages {
     String time;
     String sender;
     String messageId;
+    String imageUrl;
+    String type;
+
+    public String getMessageType(){ return type ;}
 
     public String getMessageId() {
         return messageId;
@@ -18,9 +22,13 @@ public class Messages {
         return sender;
     }
 
+    public String getImageUrl(){ return imageUrl; }
+
     public String getTime() {
         return time;
     }
+
+    public void setMessageType(String type){ this.type = type; }
 
     public void setTextMessage(String textMessage) {
         this.textMessage = textMessage;
@@ -33,6 +41,8 @@ public class Messages {
     public void setTime(String time) {
         this.time = time;
     }
+
+    public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
 
     public void setMessageId(String messageId) {
         this.messageId = messageId;

@@ -129,6 +129,25 @@
             android:textAllCaps="false"
             />
 
+        <TextView
+            android:id="@+id/talktoJyotish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_35dp"
+            android:layout_marginEnd="@dimen/dimen_35dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:text="@string/book_talk"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/exploreOptions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:padding="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_16sp"
+            android:textColor="@android:color/holo_orange_dark"
+            />
+
         <Button
             android:id="@+id/appointments"
             android:background="@drawable/rounded_button"
@@ -147,7 +166,25 @@
             android:textAllCaps="false"
             />
 
+        <TextView
+            android:id="@+id/offer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/offer"
+            app:layout_constraintTop_toBottomOf="@+id/appointments"
+            android:textAlignment="textStart"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:textSize="@dimen/dimen_16sp"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingStart="@dimen/dimen_22dp"
+            android:paddingEnd="@dimen/dimen_22dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginEnd="@dimen/dimen_10dp"/>
+
         <include layout="@layout/incoming_voice_call"
+            android:visibility="invisible"
             />
 
         <include layout="@layout/incoming_video_call"/>

@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AppointHostActivity"></activity>
+        <activity android:name=".OnBoardActivity"></activity>
+        <activity android:name=".AppointHostActivity" />
         <activity
             android:name=".VideoLogsActivity"
             android:parentActivityName=".MainScreen" />
