@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         android:id="@+id/messages"
         android:layout_marginTop="55dp"
-        android:layout_marginBottom="55dp"/>
+        android:layout_marginBottom="55dp"
+        tools:listitem="@layout/chat_card"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -124,7 +125,8 @@
         </LinearLayout>
     </LinearLayout>
 
-    <include layout="@layout/incoming_voice_call"/>
+    <include layout="@layout/incoming_voice_call"
+        android:visibility="invisible"/>
 
     <include layout="@layout/incoming_video_call"/>
 

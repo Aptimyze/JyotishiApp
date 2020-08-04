@@ -2,20 +2,19 @@ package com.jyotishapp.jyotishi;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.view.View;
@@ -25,15 +24,21 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jyotishapp.jyotishi.Common.ChatSingleton;
+import com.jyotishapp.jyotishi.Common.Common;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 public class ChatActivity extends BaseClass {
     LinearLayout help_butt, back_button;
@@ -47,6 +52,10 @@ public class ChatActivity extends BaseClass {
     String name, nid;
     LinearLayoutManager rvllm = new LinearLayoutManager(this);
 
+    ChatSingleton chat;
+
+   // List<Messages> MessagesList = new ArrayList<Messages>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +63,8 @@ public class ChatActivity extends BaseClass {
 
         getSupportActionBar().hide();
         rvllm.setStackFromEnd(true);
+
+        chat = new ChatSingleton();
 
         FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -82,6 +93,8 @@ public class ChatActivity extends BaseClass {
 
         getMessageNo();
         initializeViews();
+        onIncomingCall();
+        onIncomingVideoCall();
 
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
@@ -117,7 +130,7 @@ public class ChatActivity extends BaseClass {
 
             @Override
             protected void onBindViewHolder(@NonNull MessageViewHolder holder, int position, @NonNull Messages model) {
-//                    final String message = getRef(position).getKey();
+
                     if(!model.getSender().equals("Jyotish")){
                         holder.setOriginContainer();
                         holder.setSender("You");
@@ -132,12 +145,14 @@ public class ChatActivity extends BaseClass {
                     }
             }
 
+
             @NonNull
             @Override
             public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_card, parent, false);
                 return new MessageViewHolder(view);
             }
+
         };
         FBRA.startListening();
 //        FBRA.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -202,6 +217,47 @@ public class ChatActivity extends BaseClass {
         }
     }
 
+    public class ImageViewHolder extends RecyclerView.ViewHolder{
+        View mView;
+        public ImageViewHolder(@NonNull View itemView){
+            super(itemView);
+            mView = itemView;
+        }
+
+        public void setOriginContainer(){
+            parentContainer = (LinearLayout) mView.findViewById(R.id.parentContainer_image);
+            parentContainer.setGravity(Gravity.END);
+            messageContainer = (LinearLayout) mView.findViewById(R.id.layoutContainer_image);
+            messageContainer.setGravity(Gravity.END);
+            //messageContainer.setBackgroundResource(R.drawable.chatmessage);
+        }
+
+        public void setContainer(){
+            parentContainer = (LinearLayout) mView.findViewById(R.id.parentContainer_image);
+            parentContainer.setGravity(Gravity.START);
+            messageContainer = (LinearLayout) mView.findViewById(R.id.layoutContainer_image);
+            messageContainer.setGravity(Gravity.START);
+           // messageContainer.setBackgroundResource(R.drawable.senderchatmessage);
+        }
+
+        public void setImage(String imageUrl){
+            ImageView imageView = findViewById(R.id.message_image);
+
+        }
+
+        public void setSender(String sender){
+            TextView senderView = (TextView) mView.findViewById(R.id.sender_image);
+            senderView.setText(sender);
+            senderView.setGravity(Gravity.START);
+        }
+
+        public void setTime(String time){
+            TextView timeDate = (TextView) mView.findViewById(R.id.time_image);
+            timeDate.setText(time);
+            timeDate.setGravity(Gravity.START);
+        }
+    }
+
     public void back_butt_click(View view){
         finish();
     }
@@ -227,6 +283,7 @@ public class ChatActivity extends BaseClass {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM, hh:mm a");
                 Date date = new Date();
                 chatRef.child(messageNo+"").child("time").setValue(sdf.format(date));
+                chatRef.child(messageNo+"").child("type").setValue("text");
                 mRef.child("Chat").child("TotalMessages").setValue(messageNo+"");
                 typedMessage.setText("");
                 long timestamp = System.currentTimeMillis();

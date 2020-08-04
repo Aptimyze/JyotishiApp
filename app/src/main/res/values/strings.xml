@@ -6,6 +6,7 @@
     <string name="appointment_text">Take appointment</string>
     <string name="Appointments">Appointments</string>
     <string name="confirm_appointment">Confirm My Appointment</string>
+    <string name="offer">First 30 minutes appointment free , only ₹70/appointment thereafter</string>
     <string name="texty">Butterfly doesn\'t fly</string>
     <string name="mail">Continue with Mail</string>
     <string name="phone">Continue with Phone</string>
@@ -44,6 +45,7 @@
     <string name="no">No</string>
     <string name="jyotish_profiles">View Jyotish profiles</string>
     <string name="explore_options">Explore Options</string>
+    <string name="book_talk">Book an appointment to talk to jyotishji</string>
     <string name="chat">Chat</string>
     <string name="video">Video</string>
     <string name="audio">Voice</string>
@@ -62,6 +64,8 @@
     <string name="langu">Language</string>
     <string name="voiceCalls">Voice Calls</string>
     <string name="videoCalls">Video Calls</string>
+    <string name="feedback">Feedback</string>
+    <string name="contact_us">Contact us</string>
     <string name="settings">Settings</string>
     <string name="welcome">Welcome</string>
     <string name="buypremium">Buy Premium</string>
