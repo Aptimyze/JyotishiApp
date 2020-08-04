@@ -109,12 +109,12 @@ class MainScreen : BaseClass() {
         val headerLayout : View = navigationView!!.getHeaderView(0)
         usersName = headerLayout.findViewById<View>(R.id.usersName) as TextView
 
-        val animator = ObjectAnimator.ofInt(offer,"backgroundColor", Color.YELLOW,Color.RED)
-        animator.duration = 500
-        animator.setEvaluator(ArgbEvaluator())
-        animator.repeatMode = ValueAnimator.REVERSE
-        animator.repeatCount = Animation.INFINITE
-        animator.start()
+//        val animator = ObjectAnimator.ofInt(offer,"backgroundColor", Color.YELLOW,Color.RED)
+//        animator.duration = 500
+//        animator.setEvaluator(ArgbEvaluator())
+//        animator.repeatMode = ValueAnimator.REVERSE
+//        animator.repeatCount = Animation.INFINITE
+//        animator.start()
 
         mReff!!.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
