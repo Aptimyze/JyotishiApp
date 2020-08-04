@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#FE9A2E"
+    android:gravity="center" android:id="@+id/no_internet_view"
+    android:clickable="true" android:visibility="invisible">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/error_icon"
+        android:layout_margin="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="@string/no_internet"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:id="@+id/try_again"
+        android:layout_marginTop="20dp"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="@drawable/white_round_bg"
+        android:foreground="?attr/selectableItemBackground"
+        android:clickable="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TRY AGAIN"
+            android:textAlignment="center"
+            android:textSize="30dp"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

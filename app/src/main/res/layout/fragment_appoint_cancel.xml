@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AppointCancelFragment"
+    android:gravity="center"
+    android:layout_marginStart="@dimen/dimen_22dp"
+    android:layout_marginEnd="@dimen/dimen_22dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your appointment has been cancelled"
+        android:textSize="@dimen/dimen_22sp"
+        android:padding="@dimen/dimen_10dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_marginBottom="@dimen/dimen_35dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Appointment Details :"
+        android:textSize="@dimen/dimen_18sp"
+        android:gravity="start"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginBottom="@dimen/dimen_22dp"
+        android:layout_marginStart="@dimen/dimen_35dp"
+        android:layout_marginEnd="@dimen/dimen_35dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginStart="@dimen/dimen_35dp"
+        android:layout_marginEnd="@dimen/dimen_35dp"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+        >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date :"
+        android:textSize="@dimen/dimen_16sp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="@dimen/dimen_22dp"/>
+
+        <TextView
+            android:id="@+id/date_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DD-MM-YYYY"
+            android:textSize="@dimen/dimen_16sp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginStart="@dimen/dimen_35dp"
+        android:layout_marginEnd="@dimen/dimen_35dp"
+        android:layout_marginBottom="@dimen/dimen_35dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time :"
+            android:textSize="@dimen/dimen_16sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="@dimen/dimen_22dp"/>
+
+        <TextView
+            android:id="@+id/time_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8:00 PM"
+            android:textSize="@dimen/dimen_16sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/cont"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginTop="50dp"
+        android:text="Continue"
+        android:background="@drawable/rounded_button"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/dimen_18sp"
+        app:cornerRadius="10dp" />
+
+</LinearLayout>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:id="@+id/appoint_layout"
+    android:background="@android:color/white"
+    android:visibility="visible">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackground" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/view_loading2"
+                android:id="@+id/view_loading2_frag"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Select_time"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:padding="10dp"
+                    android:textSize="22sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/day_one_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:background="@drawable/button_unselected"
+                        android:layout_margin="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/day_one_day_frag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Day"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/day_one_date_frag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Date"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/day_two_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:background="@drawable/button_unselected"
+                        android:layout_margin="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/day_two_day_frag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Day"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/day_two_date_frag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Date"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/day_three_holder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:background="@drawable/button_unselected"
+                        android:layout_margin="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/day_three_day_frag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Day"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/day_three_date_frag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Date"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/time_recyclerview_frag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    tools:listitem="@layout/time_slot"
+                    android:layout_marginBottom="10dp" />
+
+                <Button
+                    android:id="@+id/confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:textAllCaps="false"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginEnd="33dp"
+                    android:textSize="@dimen/dimen_18sp"
+                    android:background="@drawable/rounded_button"
+                    android:text="@string/confirm_appointment"
+                    app:cornerRadius="10dp"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/viewJyotishProfiles"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                 />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

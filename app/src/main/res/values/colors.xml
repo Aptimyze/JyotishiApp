@@ -13,4 +13,25 @@
     <color name="white">#FFFFFF</color>
     <color name="colorAccent1">#FE9A2E</color>
     <color name="black_overlay">#66000000</color>
+    <color name="remote_background">#2e2e2e</color>
+    <color name="dark_gray">#585858</color>
+    <color name="gradientStartYellow">#DBA901</color>
+    <color name="gradientEndYellow">#FACC2E</color>
+    <color name="whiteYellow">#FBF5EF</color>
+    <color name="toolbar_color">#F5DA81</color>
+    <color name="e2e2e">#2E2E2E</color>
+    <color name="voicebg">#F7F2E0</color>
+    <color name="red">#FF0000</color>
+    <color name="disabled">#848484</color>
+    <color name="black">#000000</color>
+    <color name="green">#04B431</color>
+    <color name="light_black">#424242</color>
+    <color name="light_green">#58FA58</color>
+    <color name="less_white">#FAFAFA</color>
+    <color name="blue_tint">#0080FF</color>
+    <color name="white_yellow">#F5ECCE</color>
+    <color name="ColorLightYellow">#FDEDB9</color>
+    <color name="ColorYellow">#FA9107</color>
+    <color name="colorGrey">#B9B9B9</color>
+    <color name="unknownYellow">#FFB504</color>
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/time_slot_holder"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:background="@drawable/button_unselected">
+
+    <TextView
+        android:id="@+id/time_slot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8:00 PM"
+        android:textSize="20sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/colorGrey"/>
+
+</LinearLayout>

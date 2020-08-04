@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your appointment has been confirmed !"
+        android:gravity="center"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Appointment Date :"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginEnd="20dp" />
+
+        <TextView
+            android:id="@+id/appointDate_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="DD-MM-YYYY"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Appointment Time :"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginEnd="20dp" />
+
+        <TextView
+            android:id="@+id/appointTime_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="T:TT PM"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginTop="50dp"
+        android:text="Back to home"
+        android:background="@drawable/rounded_button"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/dimen_18sp"
+        app:cornerRadius="10dp" />
+
+</LinearLayout>

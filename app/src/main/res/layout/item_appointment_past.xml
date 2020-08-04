@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dimen_20dp"
+    android:layout_marginEnd="@dimen/dimen_20dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="7dp"
+    android:background="@drawable/card_appoint_past"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="@dimen/dimen_15dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date :"
+                android:textSize="@dimen/dimen_18sp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:textColor="@color/colorGrey"/>
+
+            <TextView
+                android:id="@+id/date_past"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DD-MM-YYYY"
+                android:textSize="@dimen/dimen_18sp"
+                android:textColor="@color/colorGrey"/>
+
+            <TextView
+                android:id="@+id/day_name_past"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sun"
+                android:textAlignment="textEnd"
+                android:textSize="@dimen/dimen_18sp"
+                android:textColor="@color/colorGrey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="@dimen/dimen_10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time :"
+                android:textSize="@dimen/dimen_18sp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:textColor="@color/colorGrey"/>
+
+            <TextView
+                android:id="@+id/time_past"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HH:AA"
+                android:textSize="@dimen/dimen_18sp"
+                android:textColor="@color/colorGrey"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status :"
+                android:textSize="@dimen/dimen_18sp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:textColor="@color/colorGrey"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="past appointment"
+                android:textSize="@dimen/dimen_18sp"
+                android:textColor="@color/colorGrey"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

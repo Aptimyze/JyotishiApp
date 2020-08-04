@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LanguageActivity">
+
+    <Button
+        android:id="@+id/english"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="englishButt"
+        android:padding="15dp"
+        android:gravity="center"
+        android:layout_marginHorizontal="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:text="English"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button"
+        app:cornerRadius="10dp"
+
+        app:rippleColor="#D99B08" />
+
+    <Button
+        android:id="@+id/hindi"
+        android:background="@drawable/rounded_button"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_marginHorizontal="60dp"
+        android:layout_height="wrap_content"
+        android:onClick="hindiButt"
+        android:textColor="@color/white"
+        android:padding="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:text="हिंदी"
+        app:cornerRadius="10dp"
+        app:rippleColor="#D99B08" />
+
+</LinearLayout>

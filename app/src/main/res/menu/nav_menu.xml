@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/g1" android:checkableBehavior="single">
+        <item android:id="@+id/AudioCalls"
+            android:icon="@drawable/ic_audio" android:title="@string/voiceCalls"/>
+
+        <item android:id="@+id/VideoCalls"
+            android:icon="@drawable/ic_video_icon" android:title="@string/videoCalls"/>
+
+        <item
+            android:id="@+id/appointment"
+            android:icon="@drawable/appoint"
+            android:title="@string/appointments" />
+
+        <item android:id="@+id/BuyPremium"
+            android:icon="@drawable/ic_buy_premium" android:title="@string/buypremium"/>
+
+    </group>
+
+    <group android:id="@+id/g2" android:checkableBehavior="single">
+        <item android:id="@+id/settings"
+            android:icon="@drawable/ic_settings" android:title="@string/settings"/>
+
+        <item android:id="@+id/TermsAndConditions"
+            android:icon="@drawable/ic_tnc" android:title="@string/tnc"/>
+    </group>
+
+
+</menu>

@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".ChatActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/messages"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="55dp"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:elevation="3dp"
@@ -45,7 +52,7 @@
             android:layout_marginStart="87dp"
             android:layout_marginTop="13dp"
             android:layout_marginBottom="11dp"
-            android:text="Jyotish Ji"
+            android:text="@string/jyotish_ji"
             android:textColor="@android:color/white"
             android:textSize="22dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -80,7 +87,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="9dp"
@@ -89,19 +96,23 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
+            android:id="@+id/typedMessage"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="0dp"
             android:layout_marginRight="0dp"
+            android:inputType="textMultiLine"
             android:layout_weight="1"
             android:background="@drawable/textbox"
-            android:hint="Type a message"
+            android:hint="@string/type_message"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
         <LinearLayout
+            android:id="@+id/sendButton"
+            android:onClick="sendButtonClicked"
             android:layout_marginLeft="5dp"
             android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:clickable="true"
             android:focusable="true"
             android:background="@drawable/sendripple">
@@ -112,5 +123,11 @@
                 android:src="@drawable/sendmessage"/>
         </LinearLayout>
     </LinearLayout>
+
+    <include layout="@layout/incoming_voice_call"/>
+
+    <include layout="@layout/incoming_video_call"/>
+
+    <include layout="@layout/no_internet_view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

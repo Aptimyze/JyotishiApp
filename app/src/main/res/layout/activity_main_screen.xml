@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainScreen">
+    tools:context=".MainScreen"
+    android:id="@+id/drawerLayout"
+    android:animateLayoutChanges="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:onClick="bgClicked"
+        android:id="@+id/bg">
 
         <!--        <ImageView-->
         <!--            android:layout_width="300dp"-->
         <!--            android:layout_height="300dp">-->
 
         <!--        </ImageView>-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/drawer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="drawerOpen"/>
 
         <com.nightonke.boommenu.BoomMenuButton
             android:id="@+id/mainPic"
@@ -27,8 +41,8 @@
             android:layout_marginEnd="146dp"
             android:layout_marginBottom="333dp"
             app:bmb_buttonEnum="textInsideCircle"
-            app:bmb_buttonPlaceEnum="buttonPlace_sc_2_1"
-            app:bmb_piecePlaceEnum="piecePlace_dot_2_1"
+            app:bmb_buttonPlaceEnum="buttonPlace_sc_3_1"
+            app:bmb_piecePlaceEnum="piecePlace_dot_3_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,6 +79,7 @@
 
         <io.github.yavski.fabspeeddial.FabSpeedDial
             android:layout_width="wrap_content"
+            android:elevation="5dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="7dp"
@@ -77,6 +92,83 @@
             app:miniFabBackgroundTint="@color/white"
             app:miniFabDrawableTint="@color/colorAccent"
             app:miniFabTitleTextColor="@color/black_overlay" />
+
+        <Button
+            android:id="@+id/viewJyotishProfiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="70dp"
+            android:onClick="viewJyotishProfilesClicked"
+            android:text="@string/jyotish_profiles"
+            android:background="@drawable/rounded_button"
+            app:cornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageBorder"
+            android:textAllCaps="false"
+        />
+
+        <Button
+            android:id="@+id/exploreOptions"
+            android:background="@drawable/rounded_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="21dp"
+            android:onClick="exploreOptionsClicked"
+            android:textColor="@android:color/white"
+            android:text="@string/explore_options"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageBorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textAllCaps="false"
+            />
+
+        <Button
+            android:id="@+id/appointments"
+            android:background="@drawable/rounded_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:onClick="appointmentsClicked"
+            android:textColor="@android:color/white"
+            android:text="@string/Appointments"
+            app:cornerRadius="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/viewJyotishProfiles"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textAllCaps="false"
+            />
+
+        <include layout="@layout/incoming_voice_call"
+            />
+
+        <include layout="@layout/incoming_video_call"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+    <include layout="@layout/view_loading"/>
+
+    <include layout="@layout/no_internet_view"/>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:menu="@menu/nav_menu"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        android:id="@+id/nView"
+        android:background="@color/white"
+        />
+
+
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
