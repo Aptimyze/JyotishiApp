@@ -1,11 +1,16 @@
 package com.jyotishapp.jyotishi
 
 import android.Manifest
+import android.animation.Animator
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +33,7 @@ import com.nightonke.boommenu.BoomMenuButton
 import com.onesignal.OneSignal
 import io.github.yavski.fabspeeddial.FabSpeedDial
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter
+import kotlinx.android.synthetic.main.activity_main_screen.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -103,7 +109,12 @@ class MainScreen : BaseClass() {
         val headerLayout : View = navigationView!!.getHeaderView(0)
         usersName = headerLayout.findViewById<View>(R.id.usersName) as TextView
 
-
+        val animator = ObjectAnimator.ofInt(offer,"backgroundColor", Color.YELLOW,Color.RED)
+        animator.duration = 500
+        animator.setEvaluator(ArgbEvaluator())
+        animator.repeatMode = ValueAnimator.REVERSE
+        animator.repeatCount = Animation.INFINITE
+        animator.start()
 
         mReff!!.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
