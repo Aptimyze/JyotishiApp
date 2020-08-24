@@ -1,17 +1,14 @@
 package com.jyotishapp.jyotishi
 
 import android.Manifest
-import android.animation.Animator
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.Color
 import android.graphics.Rect
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -19,7 +16,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
-import android.widget.*
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -33,7 +32,6 @@ import com.nightonke.boommenu.BoomMenuButton
 import com.onesignal.OneSignal
 import io.github.yavski.fabspeeddial.FabSpeedDial
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter
-import kotlinx.android.synthetic.main.activity_main_screen.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -302,9 +300,12 @@ class MainScreen : BaseClass() {
     }
 
     fun logout() {
+        try {
+            unregisterReceiver(ConnectivityReceiver())
+        }catch (e: java.lang.Exception){}
         OneSignal.setSubscription(false)
         FirebaseAuth.getInstance().signOut()
-        //MAuth?.signOut()
+        mAuth?.signOut()
 
 
 //        try {
@@ -319,6 +320,7 @@ class MainScreen : BaseClass() {
         val i = Intent(this@MainScreen, LanguageActivity::class.java)
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(i)
+//
     }
 
     companion object {

@@ -55,7 +55,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
                 name.setText(nameI);
                 age.setText(ageI + " years");
-                if(!mAuth.getCurrentUser().getPhoneNumber().equals(""))
+                if(mAuth.getCurrentUser().getPhoneNumber() !=null &&
+                        !mAuth.getCurrentUser().getPhoneNumber().equals(""))
                     contact.setText(mAuth.getCurrentUser().getPhoneNumber());
                 else
                     contact.setText("N/A");

@@ -177,11 +177,10 @@ public class PhoneLogin extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (!dataSnapshot.exists()) {
                                         startActivity(new Intent(PhoneLogin.this, InformationActivity.class));
-                                        return;
                                     } else {
                                         startActivity(new Intent(PhoneLogin.this, MainScreen.class));
-                                        return;
                                     }
+                                    return;
                                 }
 
                                 @Override

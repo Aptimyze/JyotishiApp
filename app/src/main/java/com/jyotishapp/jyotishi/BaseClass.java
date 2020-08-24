@@ -28,6 +28,8 @@ public abstract class BaseClass extends AppCompatActivity implements Connectivit
         incomingVideoCall, accceptVideoButton, declineVideoButton,
             tryAgain;
     View noInternet;
+    ConnectivityReceiver connectivityReceiver;
+    IntentFilter intentFilter;
 
     public void initializeViews(){
         noInternet = (View) findViewById(R.id.no_internet_view);
@@ -52,8 +54,10 @@ public abstract class BaseClass extends AppCompatActivity implements Connectivit
 //                .getSystemService(Context.CONNECTIVITY_SERVICE);
 //        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 //        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        registerReceiver(new ConnectivityReceiver(),
-                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        connectivityReceiver = new ConnectivityReceiver();
+        intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(connectivityReceiver,
+                intentFilter);
     }
 
     @Override
@@ -68,6 +72,16 @@ public abstract class BaseClass extends AppCompatActivity implements Connectivit
             noInternet.setVisibility(View.VISIBLE);
         else
             noInternet.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        try {
+//            unregisterReceiver(connectivityReceiver);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 
     public void onIncomingCall(){

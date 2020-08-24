@@ -220,11 +220,10 @@ public class MainActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (!dataSnapshot.exists()) {
                                         startActivity(new Intent(MainActivity.this, InformationActivity.class));
-                                        return;
                                     } else {
                                         startActivity(new Intent(MainActivity.this, MainScreen.class));
-                                        return;
                                     }
+                                    return;
                                 }
 
                                 @Override
@@ -237,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                            startActivity(new Intent(MainActivity.this, MainScreen.class));
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_LONG).show();
-                            finish();
+//                            finish();
                         } else {
                             Toast.makeText(MainActivity.this, "An error occured", Toast.LENGTH_SHORT).show();
                         }
