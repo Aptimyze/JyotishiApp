@@ -7,23 +7,22 @@ Demo video: https://www.linkedin.com/posts/anubhav-m-7319bb120_startup-startups-
 
 ## App Screenshots (Version 0.9.3) 
 
-![SS 1](https://github.com/anubhav11march/JyotishiApp/blob/master/1.gif)
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/2.gif" width="200" height="400" />
 
-![SS 2](https://github.com/anubhav11march/JyotishiApp/blob/master/2.gif)
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/1.gif" width="200" height="400" />
 
-![SS 3](https://github.com/anubhav11march/JyotishiApp/blob/master/3.gif)
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/3.gif" width="200" height="400" />
 
-![SS 4](https://github.com/anubhav11march/JyotishiApp/blob/master/4.gif)
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/4.gif" width="200" height="400" />
 
-![SS 5](https://github.com/anubhav11march/JyotishiApp/blob/master/5.gif)
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/5.gif" width="200" height="400" />
 
-![SS 6](https://github.com/anubhav11march/JyotishiApp/blob/master/6.gif)
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/6.gif" width="200" height="400" />
 
-![SS 7](https://github.com/anubhav11march/JyotishiApp/blob/master/7.gif)
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/7.gif" width="200" height="400" />
 
-![SS 8](https://github.com/anubhav11march/JyotishiApp/blob/master/8.gif)
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/8.gif" width="200" height="400" />
 
-![SS 9](https://github.com/anubhav11march/JyotishiApp/blob/master/9.gif)
-
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/9.gif" width="200" height="400" />
 
 
