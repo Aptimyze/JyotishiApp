@@ -7,11 +7,11 @@ Demo video: https://www.linkedin.com/posts/anubhav-m-7319bb120_startup-startups-
 
 ## App Screenshots (Version 0.9.3) 
 
-<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/2.gif" width="200" height="400" />
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/3.gif" width="200" height="400" />
 
 <img src="https://github.com/anubhav11march/JyotishiApp/blob/master/1.gif" width="200" height="400" />
 
-<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/3.gif" width="200" height="400" />
+<img src="https://github.com/anubhav11march/JyotishiApp/blob/master/2.gif" width="200" height="400" />
 
 <img src="https://github.com/anubhav11march/JyotishiApp/blob/master/4.gif" width="200" height="400" />
 
