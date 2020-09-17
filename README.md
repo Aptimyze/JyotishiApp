@@ -1,13 +1,29 @@
 # JyotishiApp
 App for Astrology
 
-## Flowthrough (Version 0.8.2) 
+Play store link: https://play.google.com/store/apps/details?id=com.jyotishapp.jyotishi
 
-![Flowthrough 1](https://github.com/anubhav11march/anubhav11march.github.io/blob/master/ezgif.com-video-to-gif%20(12).gif)
+Demo video: https://www.linkedin.com/posts/anubhav-m-7319bb120_startup-startups-covid19-activity-6710526583465234432-kO6R
 
-![Flowthrough 2](https://github.com/anubhav11march/anubhav11march.github.io/blob/master/ezgif.com-video-to-gif%20(13).gif)
+## App Screenshots (Version 0.9.3) 
 
-![Flowthrough 3](https://github.com/anubhav11march/anubhav11march.github.io/blob/master/ezgif.com-video-to-gif%20(14).gif)
+![SS 1](https://github.com/anubhav11march/JyotishiApp/blob/master/1.gif)
+
+![SS 2](https://github.com/anubhav11march/JyotishiApp/blob/master/2.gif)
+
+![SS 3](https://github.com/anubhav11march/JyotishiApp/blob/master/3.gif)
+
+![SS 4](https://github.com/anubhav11march/JyotishiApp/blob/master/4.gif)
+
+![SS 5](https://github.com/anubhav11march/JyotishiApp/blob/master/5.gif)
+
+![SS 6](https://github.com/anubhav11march/JyotishiApp/blob/master/6.gif)
+
+![SS 7](https://github.com/anubhav11march/JyotishiApp/blob/master/7.gif)
+
+![SS 8](https://github.com/anubhav11march/JyotishiApp/blob/master/8.gif)
+
+![SS 9](https://github.com/anubhav11march/JyotishiApp/blob/master/9.gif)
 
 
 
